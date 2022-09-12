@@ -11,7 +11,8 @@ int main(int argc, char* args[])
 		g_pWindow = SDL_CreateWindow("Game Framework",
 			SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED, 1024, 768,
-			SDL_WINDOW_SHOWN);
+			//윈도우 생성 다르게 해보기
+			SDL_WINDOW_BORDERLESS|SDL_WINDOW_MAXIMIZED);
 
 		if (g_pWindow != 0)
 		{
@@ -23,11 +24,13 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	SDL_SetRenderDrawColor(g_pRenderer, 0, 0, 0, 255);
+	//윈도우 바탕화면 색 바꾸기
+	SDL_SetRenderDrawColor(g_pRenderer, 0, 0,255, 255);
 	SDL_RenderClear(g_pRenderer);
 	SDL_RenderPresent(g_pRenderer);
 
-	SDL_Delay(5000);
+	//프로그램 10초 후 종료
+	SDL_Delay(10000);
 	SDL_Quit();
 
 	return 0;

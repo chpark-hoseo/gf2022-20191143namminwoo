@@ -142,10 +142,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\init.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\render.cpp" />
+    <ClCompile Include="src\update.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\init.h" />
     <ClInclude Include="include\main.h" />
+    <ClInclude Include="include\render.h" />
+    <ClInclude Include="include\update.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

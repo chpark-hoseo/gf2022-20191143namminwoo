@@ -2,7 +2,8 @@
 
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
 {
-    if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
+    if (SDL_Init(SDL_INIT_EVERYTHING) == 0) 
+    {
         m_pWindow = SDL_CreateWindow(
             title, xpos, ypos, width, height, flags);
         if (m_pWindow != 0) {
@@ -23,6 +24,21 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     else {
         return false; // SDL 초기화 실패
     }
+    //텍스처 생성
+    {
+        SDL_Surface* pTempSurface = SDL_LoadBMP("assets/rider.bmp");
+        m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+        SDL_FreeSurface(pTempSurface);
+        //원본상자의 높이,너비 설정
+        SDL_QueryTexture(m_pTexture, NULL, NULL,   //QueryTexture 함수 사용해서 크기 구하기
+            &m_sourceRectangle.w, &m_sourceRectangle.h); 
+        //대상상자의 높이, 너비 설정 -> 원본상자와 동일하게
+        m_destinationRectangle.w = m_sourceRectangle.w;
+        m_destinationRectangle.h = m_sourceRectangle.h;
+        //원본 + 대상상자의 위치 설정 (좌측최상단 고정)
+        m_destinationRectangle.x = m_sourceRectangle.x = 0;
+        m_destinationRectangle.y = m_sourceRectangle.y = 0;
+    }
 
     m_bRunning = true;
     return true;
@@ -30,13 +46,20 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-	
+    //m_destinationRectangle.x+=1;
+    //SDL_Delay(10);
+
 }
 
 void Game::render()
 {
-    SDL_RenderClear(m_pRenderer);
-    SDL_RenderPresent(m_pRenderer);
+    //RenderClear = 화면지움
+    SDL_RenderClear(m_pRenderer); //왜 되지?
+    //RenderCopy = 그리기 수행
+    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+    //RenderPresent = 그린거 호출
+    SDL_RenderPresent(m_pRenderer);  
+
 }
 
 bool Game::running()
@@ -47,7 +70,8 @@ bool Game::running()
 void Game::handleEvents()
 {
     SDL_Event event;
-    if (SDL_PollEvent(&event))
+    /*if (SDL_PollEvent(&event))*/
+    while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내 동작 가능하게 만들기 위해서라고 추측함
     {
         switch (event.type)
         {

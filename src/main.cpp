@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 {
     g_game = new Game();
 
-    g_game->init("Game Class", 100, 100, 1024, 1280, 0);
+    g_game->init("Game Class", 100, 100, 500, 680, 0);
 
     while (g_game->running())
     {
@@ -16,6 +16,7 @@ int main(int argc, char* argv[])
         g_game->render();
     }
 
+    //cout << 
     g_game->clean();
 
     return 0;

@@ -48,7 +48,16 @@ void Game::update()
 {
     //m_destinationRectangle.x+=1;
     //SDL_Delay(10);
-
+    if (m_destinationRectangle.x < 500&& m_destinationRectangle.x>=0)
+    {
+        m_destinationRectangle.x += 1;
+        SDL_Delay(5);
+    }
+    else if(m_destinationRectangle.x==377&& m_destinationRectangle.x >= 0)
+    {
+        m_destinationRectangle.x -= 1;
+        SDL_Delay(5);
+    }
 }
 
 void Game::render()

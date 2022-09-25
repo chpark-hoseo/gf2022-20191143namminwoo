@@ -17,6 +17,9 @@ public:
 private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
+
+	SDL_Window* b_pWindow;
+	SDL_Renderer* b_pRenderer;
 	bool m_bRunning;
 
 //멤버변수 추가 -> 
@@ -25,6 +28,10 @@ private:
 	SDL_Rect m_sourceRectangle;
 	// 대상 사각형
 	SDL_Rect m_destinationRectangle;
+
+	SDL_Texture* b_pTexture;
+	SDL_Rect b_SRect;
+	SDL_Rect b_DRect;
 
 	typedef struct SDL_Rect
 	{

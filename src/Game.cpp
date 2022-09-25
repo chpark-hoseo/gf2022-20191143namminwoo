@@ -1,4 +1,5 @@
 #include "Game.h"
+int x = 0; //이미지 좌우 반복 경우를 위한 변수 선언
 
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
 {
@@ -11,7 +12,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
             if (m_pRenderer != 0) {
                 SDL_SetRenderDrawColor(
-                    m_pRenderer, 154, 225, 50, 0);
+                    m_pRenderer, 255, 255, 255, 255);
             }
             else {
                 return false; // 랜더러 생성 실패
@@ -46,24 +47,33 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-    //m_destinationRectangle.x+=1;
-    //SDL_Delay(10);
-    if (m_destinationRectangle.x < 500&& m_destinationRectangle.x>=0)
+    //최적화 더 가능할거라 예상 중
+    if (x == 0) //이미지가 오른쪽으로 가는 경우
     {
         m_destinationRectangle.x += 1;
         SDL_Delay(5);
+        if (m_destinationRectangle.x == 567) //이미지가 오른쪽 최후방에 닿았을 때 변수 전환
+        {
+            x = 1;
+        }
     }
-    else if(m_destinationRectangle.x==377&& m_destinationRectangle.x >= 0)
+    else if (x == 1) //이미지가 왼쪽으로 가는 경우
     {
         m_destinationRectangle.x -= 1;
         SDL_Delay(5);
+        if (m_destinationRectangle.x == 0) //이미지가 왼쪽 최후방에 닿았을 때 변수 전환
+        {
+            x = 0;
+        }
     }
+
+
 }
 
 void Game::render()
 {
     //RenderClear = 화면지움
-    SDL_RenderClear(m_pRenderer); //왜 되지?
+    SDL_RenderClear(m_pRenderer);
     //RenderCopy = 그리기 수행
     SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
     //RenderPresent = 그린거 호출
@@ -95,6 +105,26 @@ void Game::handleEvents()
 
 void Game::clean()
 {
+    //SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    //SDL_RenderClear(renderer);
+
+    //SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
+    //SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    //SDL_RenderFillRect(renderer, &fillRect);
+
+    //SDL_Rect outlineRect = { SCREEN_WIDTH / 6, SCREEN_HEIGHT / 6, SCREEN_WIDTH * 2 / 3, SCREEN_HEIGHT * 2 / 3 };
+    //SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    //SDL_RenderDrawRect(renderer, &outlineRect);
+
+    //SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    //SDL_RenderDrawLine(renderer, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
+
+    //SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+    //for (int i = 0; i < SCREEN_HEIGHT; i += 4)
+    //{
+    //    SDL_RenderDrawPoint(renderer, SCREEN_WIDTH / 2, i);
+    //}
+
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();

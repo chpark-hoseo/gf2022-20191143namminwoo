@@ -20,6 +20,7 @@ private:
 
 	SDL_Window* b_pWindow;
 	SDL_Renderer* b_pRenderer;
+
 	bool m_bRunning;
 
 //멤버변수 추가 -> 

@@ -40,6 +40,20 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         m_destinationRectangle.x = m_sourceRectangle.x = 0;
         m_destinationRectangle.y = m_sourceRectangle.y = 0;
     }
+    {
+        SDL_Surface* b_pTempSurface = SDL_LoadBMP("assets/cart_back.bmp");
+        b_pTexture = SDL_CreateTextureFromSurface(b_pRenderer, b_pTempSurface);
+        SDL_FreeSurface(b_pTempSurface);
+        //원본상자의 높이,너비 설정
+        SDL_QueryTexture(b_pTexture, NULL, NULL,   //QueryTexture 함수 사용해서 크기 구하기
+            &b_SRect.w, &b_SRect.h);
+        //대상상자의 높이, 너비 설정 -> 원본상자와 동일하게
+        b_DRect.w = b_SRect.w;
+        b_DRect.h = b_SRect.h;
+        //원본 + 대상상자의 위치 설정 (좌측최상단 고정)
+        b_DRect.x = b_SRect.x = 0;
+        b_DRect.y = b_SRect.y = 0;
+    }
 
     m_bRunning = true;
     return true;
@@ -76,8 +90,10 @@ void Game::render()
     SDL_RenderClear(m_pRenderer);
     //RenderCopy = 그리기 수행
     SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+    SDL_RenderCopy(b_pRenderer, b_pTexture, &b_SRect, &b_DRect);
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
+    SDL_RenderPresent(b_pRenderer);
 
 }
 

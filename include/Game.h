@@ -19,6 +19,7 @@ private:
 	SDL_Renderer* m_pRenderer;
 
 	bool m_bRunning;
+	int x = 0; //이미지 좌우 반복 경우를 위한 변수 선언
 
 //멤버변수 추가 -> 
 	SDL_Texture* m_pTexture;

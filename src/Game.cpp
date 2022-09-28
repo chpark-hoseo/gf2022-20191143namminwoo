@@ -1,5 +1,4 @@
 #include "Game.h"
-int x = 0; //이미지 좌우 반복 경우를 위한 변수 선언
 
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
 {
@@ -94,8 +93,16 @@ void Game::update()
             x = 0;
         }
     }
-
-
+    //if (m_destinationRectangle.x == 567)
+    //{
+    //    x = x *+1;
+    //}
+    //else if (m_destinationRectangle.x == 0)
+    //{
+    //    x = x * -1;
+    //}
+    //m_destinationRectangle.x += x;
+    //SDL_Delay(5);
 }
 
 void Game::render()
@@ -107,8 +114,6 @@ void Game::render()
     SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);  
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
-
-
 }
 
 bool Game::running()

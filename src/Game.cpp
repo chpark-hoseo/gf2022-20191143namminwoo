@@ -32,25 +32,32 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         //원본상자의 높이,너비 설정
         SDL_QueryTexture(m_pTexture, NULL, NULL,   //QueryTexture 함수 사용해서 크기 구하기
             &m_sourceRectangle.w, &m_sourceRectangle.h); 
-        //대상상자의 높이, 너비 설정 -> 원본상자와 동일하게
-        m_destinationRectangle.w = m_sourceRectangle.w;
-        m_destinationRectangle.h = m_sourceRectangle.h;
+        //대상상자의 높이, 너비 설정 -> 원본상자와 동일하게  -> 말 앞머리 부분만 나오게 원본상자 변경
+        m_destinationRectangle.w = m_sourceRectangle.w = 50;
+        m_destinationRectangle.h = m_sourceRectangle.h = 50;
         //원본 + 대상상자의 위치 설정 (좌측최상단 고정)
         m_destinationRectangle.x = m_sourceRectangle.x = 0;
         m_destinationRectangle.y = m_sourceRectangle.y = 0;
+
+        //말 앞머리 부분만 나오는 대상상자의 위치 변경
+        m_destinationRectangle.x = 50;
+        m_destinationRectangle.y = 50;
+
+
     }
-    //배경 추가
-    {
-        SDL_Surface* pCart_back = SDL_LoadBMP("assets/cart_back.bmp");
-        m_pCart_back = SDL_CreateTextureFromSurface(m_pRenderer, pCart_back);
-        SDL_FreeSurface(pCart_back);
-        SDL_QueryTexture(m_pCart_back, NULL, NULL,
-            &m_Cart_Back_SRect.w, &m_Cart_Back_SRect.h);
-        m_Cart_Back_DRect.w = m_Cart_Back_SRect.w*3;
-        m_Cart_Back_DRect.h = m_Cart_Back_SRect.h*3;
-        m_Cart_Back_DRect.x = m_Cart_Back_SRect.x = 0;
-        m_Cart_Back_DRect.y = m_Cart_Back_SRect.y = 0;
-    }
+
+    ////배경 추가
+    //{
+    //    SDL_Surface* pCart_back = SDL_LoadBMP("assets/cart_back.bmp");
+    //    m_pCart_back = SDL_CreateTextureFromSurface(m_pRenderer, pCart_back);
+    //    SDL_FreeSurface(pCart_back);
+    //    SDL_QueryTexture(m_pCart_back, NULL, NULL,
+    //        &m_Cart_Back_SRect.w, &m_Cart_Back_SRect.h);
+    //    m_Cart_Back_DRect.w = m_Cart_Back_SRect.w*3;
+    //    m_Cart_Back_DRect.h = m_Cart_Back_SRect.h*3;
+    //    m_Cart_Back_DRect.x = m_Cart_Back_SRect.x = 0;
+    //    m_Cart_Back_DRect.y = m_Cart_Back_SRect.y = 0;
+    //}
 
     //SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     //SDL_RenderClear(renderer);
@@ -74,25 +81,25 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-    //최적화 더 가능할거라 예상 중
-    if (x == 0) //이미지가 오른쪽으로 가는 경우
-    {
-        m_destinationRectangle.x += 1;
-        SDL_Delay(5);
-        if (m_destinationRectangle.x == 567) //이미지가 오른쪽 최후방에 닿았을 때 변수 전환
-        {
-            x = 1;
-        }
-    }
-    else if (x == 1) //이미지가 왼쪽으로 가는 경우
-    {
-        m_destinationRectangle.x -= 1;
-        SDL_Delay(5);
-        if (m_destinationRectangle.x == 0) //이미지가 왼쪽 최후방에 닿았을 때 변수 전환
-        {
-            x = 0;
-        }
-    }
+    ////최적화 더 가능할거라 예상 중
+    //if (x == 0) //이미지가 오른쪽으로 가는 경우
+    //{
+    //    m_destinationRectangle.x += 1;
+    //    SDL_Delay(5);
+    //    if (m_destinationRectangle.x == 567) //이미지가 오른쪽 최후방에 닿았을 때 변수 전환
+    //    {
+    //        x = 1;
+    //    }
+    //}
+    //else if (x == 1) //이미지가 왼쪽으로 가는 경우
+    //{
+    //    m_destinationRectangle.x -= 1;
+    //    SDL_Delay(5);
+    //    if (m_destinationRectangle.x == 0) //이미지가 왼쪽 최후방에 닿았을 때 변수 전환
+    //    {
+    //        x = 0;
+    //    }
+    //}
     //if (m_destinationRectangle.x == 567)
     //{
     //    x = x *+1;
@@ -103,6 +110,8 @@ void Game::update()
     //}
     //m_destinationRectangle.x += x;
     //SDL_Delay(5);
+    
+
 }
 
 void Game::render()
@@ -110,7 +119,7 @@ void Game::render()
     //RenderClear = 화면지움
     SDL_RenderClear(m_pRenderer);
     //RenderCopy = 그리기 수행
-    SDL_RenderCopy(m_pRenderer, m_pCart_back, &m_Cart_Back_SRect, &m_Cart_Back_DRect);
+   // SDL_RenderCopy(m_pRenderer, m_pCart_back, &m_Cart_Back_SRect, &m_Cart_Back_DRect);
     SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);  
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
@@ -143,7 +152,7 @@ void Game::clean()
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_DestroyTexture(m_pTexture); //Texture 제거 추가
-    SDL_DestroyTexture(m_pCart_back); //Texture 제거
+  //  SDL_DestroyTexture(m_pCart_back); //Texture 제거
     //SDL_DestroyRect();  << ?
     SDL_Quit();
 }

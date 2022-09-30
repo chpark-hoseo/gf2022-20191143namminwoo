@@ -19,7 +19,7 @@ private:
 	SDL_Renderer* m_pRenderer;
 
 	bool m_bRunning;
-	int x = 0; //이미지 좌우 반복 경우를 위한 변수 선언
+	//int x = 0; //이미지 좌우 반복 경우를 위한 변수 선언
 
 //멤버변수 추가 -> 
 	SDL_Texture* m_pTexture;
@@ -28,9 +28,9 @@ private:
 	// 대상 사각형
 	SDL_Rect m_destinationRectangle;
 
-	SDL_Texture* m_pCart_back;
-	SDL_Rect m_Cart_Back_SRect;
-	SDL_Rect m_Cart_Back_DRect;
+	//SDL_Texture* m_pCart_back;
+	//SDL_Rect m_Cart_Back_SRect;
+	//SDL_Rect m_Cart_Back_DRect;
 
 
 

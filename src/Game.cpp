@@ -32,18 +32,16 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         //원본상자의 높이,너비 설정
         SDL_QueryTexture(m_pTexture, NULL, NULL,   //QueryTexture 함수 사용해서 크기 구하기
             &m_sourceRectangle.w, &m_sourceRectangle.h); 
-        //대상상자의 높이, 너비 설정 -> 원본상자와 동일하게  -> 말 앞머리 부분만 나오게 원본상자 변경
+        //대상상자의 높이, 너비 설정 -> 원본상자와 동일하게  -> 말 뒷다리 부분만 나오게 원본상자 너비, 높이 변경
         m_destinationRectangle.w = m_sourceRectangle.w = 50;
         m_destinationRectangle.h = m_sourceRectangle.h = 50;
-        //원본 + 대상상자의 위치 설정 (좌측최상단 고정)
-        m_destinationRectangle.x = m_sourceRectangle.x = 0;
-        m_destinationRectangle.y = m_sourceRectangle.y = 0;
+        //원본 + 대상상자의 위치 설정 (좌측최상단 고정) -> 말 뒷다리 부분만 나오는 대상상자 위치 고정?
+        m_destinationRectangle.x = m_sourceRectangle.x = 50;
+        m_destinationRectangle.y = m_sourceRectangle.y = 50;
 
-        //말 앞머리 부분만 나오는 대상상자의 위치 변경
-        m_destinationRectangle.x = 50;
+        //말 뒷다리 부분만 나오는 대상상자의 위치 변경
+        m_destinationRectangle.x = 100;
         m_destinationRectangle.y = 50;
-
-
     }
 
     ////배경 추가

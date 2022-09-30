@@ -114,7 +114,12 @@ void Game::render()
     SDL_RenderClear(m_pRenderer);
     //RenderCopy = 그리기 수행
    // SDL_RenderCopy(m_pRenderer, m_pCart_back, &m_Cart_Back_SRect, &m_Cart_Back_DRect);
-    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);  
+   // SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);  
+    SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle, 
+         80.5/*이미지 기울기 각도(double)*/, NULL /*?*/, SDL_FLIP_HORIZONTAL /*이미지 뒤집기*/);
+    
+    //SDL_FLIP -> NONE = 원본상태, _VERTICAL = 상하 뒤집기, HORIZONTAL = 좌우 뒤집기
+   
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
 }

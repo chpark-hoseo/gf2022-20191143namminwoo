@@ -1,6 +1,7 @@
 #pragma once
 #include "main.h"
-
+#define SCREEN_WIDTH 680
+#define SCREEN_HEIGHT 500
 class Game
 {
 public:

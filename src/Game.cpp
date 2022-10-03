@@ -26,48 +26,14 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     }
     //텍스처 생성
     {
-        SDL_Surface* pTempSurface = SDL_LoadBMP("assets/rider.bmp");
+        SDL_Surface* pTempSurface = SDL_LoadBMP("assets/animate.bmp");
         m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
         SDL_FreeSurface(pTempSurface);
-        //원본상자의 높이,너비 설정
-        SDL_QueryTexture(m_pTexture, NULL, NULL,   //QueryTexture 함수 사용해서 크기 구하기
-            &m_sourceRectangle.w, &m_sourceRectangle.h); 
-        //대상상자의 높이, 너비 설정 -> 원본상자와 동일하게 -> 화면 크기 정의하고 그거에 맞게 너비, 높이 설정
-        m_destinationRectangle.w = m_sourceRectangle.w = SCREEN_WIDTH;
-        m_destinationRectangle.h = m_sourceRectangle.h = SCREEN_HEIGHT;
-        //원본 + 대상상자의 위치 설정 (좌측최상단 고정)
+        m_destinationRectangle.w = m_sourceRectangle.w = 128;
+        m_destinationRectangle.h = m_sourceRectangle.h = 82;
         m_destinationRectangle.x = m_sourceRectangle.x = 0;
         m_destinationRectangle.y = m_sourceRectangle.y = 0;
     }
-
-    ////배경 추가
-    //{
-    //    SDL_Surface* pCart_back = SDL_LoadBMP("assets/cart_back.bmp");
-    //    m_pCart_back = SDL_CreateTextureFromSurface(m_pRenderer, pCart_back);
-    //    SDL_FreeSurface(pCart_back);
-    //    SDL_QueryTexture(m_pCart_back, NULL, NULL,
-    //        &m_Cart_Back_SRect.w, &m_Cart_Back_SRect.h);
-    //    m_Cart_Back_DRect.w = m_Cart_Back_SRect.w*3;
-    //    m_Cart_Back_DRect.h = m_Cart_Back_SRect.h*3;
-    //    m_Cart_Back_DRect.x = m_Cart_Back_SRect.x = 0;
-    //    m_Cart_Back_DRect.y = m_Cart_Back_SRect.y = 0;
-    //}
-
-    //SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    //SDL_RenderClear(renderer);
-    //SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-    //SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    //SDL_RenderFillRect(renderer, &fillRect);
-    //SDL_Rect outlineRect = { SCREEN_WIDTH / 6, SCREEN_HEIGHT / 6, SCREEN_WIDTH * 2 / 3, SCREEN_HEIGHT * 2 / 3 };
-    //SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-    //SDL_RenderDrawRect(renderer, &outlineRect);
-    //SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-    //SDL_RenderDrawLine(renderer, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
-    //SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-    //for (int i = 0; i < SCREEN_HEIGHT; i += 4)
-    //{
-    //    SDL_RenderDrawPoint(renderer, SCREEN_WIDTH / 2, i);
-    //}
 
     m_bRunning = true;
     return true;
@@ -104,7 +70,8 @@ void Game::update()
     //}
     //m_destinationRectangle.x += x;
     //SDL_Delay(5);
-    
+
+    m_sourceRectangle.x = 128 * ((SDL_GetTicks()/100) % 6);
 
 }
 
@@ -114,12 +81,10 @@ void Game::render()
     SDL_RenderClear(m_pRenderer);
     //RenderCopy = 그리기 수행
    // SDL_RenderCopy(m_pRenderer, m_pCart_back, &m_Cart_Back_SRect, &m_Cart_Back_DRect);
-   // SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);  
-    SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle, 
-         80.5/*이미지 기울기 각도(double)*/, NULL /*?*/, SDL_FLIP_HORIZONTAL /*이미지 뒤집기*/);
+    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+    
     
     //SDL_FLIP -> NONE = 원본상태, _VERTICAL = 상하 뒤집기, HORIZONTAL = 좌우 뒤집기
-   
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
 }

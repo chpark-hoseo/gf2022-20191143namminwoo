@@ -26,13 +26,24 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     }
     //텍스처 생성
     {
-        SDL_Surface* pTempSurface = SDL_LoadBMP("assets/animate.bmp");
+        SDL_Surface* pTempSurface = SDL_LoadBMP("assets/Mush.bmp");
         m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
         SDL_FreeSurface(pTempSurface);
-        m_destinationRectangle.w = m_sourceRectangle.w = 128;
-        m_destinationRectangle.h = m_sourceRectangle.h = 82;
+        m_destinationRectangle.w = m_sourceRectangle.w = 147;
+        m_destinationRectangle.h = m_sourceRectangle.h = 154;
         m_destinationRectangle.x = m_sourceRectangle.x = 0;
         m_destinationRectangle.y = m_sourceRectangle.y = 0;
+    }
+    {
+        SDL_Surface* oTempSurface = SDL_LoadBMP("assets/Mush.bmp");
+        o_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, oTempSurface);
+        SDL_FreeSurface(oTempSurface);
+        o_destinationRectangle.w = o_sourceRectangle.w = 147;
+        o_destinationRectangle.h = o_sourceRectangle.h = 154;
+        o_sourceRectangle.x = 0;
+        o_sourceRectangle.y = 0;
+        o_destinationRectangle.x = 0;
+        o_destinationRectangle.y = 200;
     }
 
     m_bRunning = true;
@@ -71,8 +82,9 @@ void Game::update()
     //m_destinationRectangle.x += x;
     //SDL_Delay(5);
 
-    m_sourceRectangle.x = 128 * ((SDL_GetTicks()/100) % 6);
+    m_sourceRectangle.x = 147 * ((SDL_GetTicks()/150) % 5);
 
+    o_sourceRectangle.x = 147 * ((SDL_GetTicks() / 50) % 5);
 }
 
 void Game::render()
@@ -82,7 +94,7 @@ void Game::render()
     //RenderCopy = 그리기 수행
    // SDL_RenderCopy(m_pRenderer, m_pCart_back, &m_Cart_Back_SRect, &m_Cart_Back_DRect);
     SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
-    
+    SDL_RenderCopy(m_pRenderer, o_pTexture, &o_sourceRectangle, &o_destinationRectangle);
     
     //SDL_FLIP -> NONE = 원본상태, _VERTICAL = 상하 뒤집기, HORIZONTAL = 좌우 뒤집기
     //RenderPresent = 그린거 호출
@@ -116,6 +128,7 @@ void Game::clean()
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_DestroyTexture(m_pTexture); //Texture 제거 추가
+    SDL_DestroyTexture(o_pTexture);
   //  SDL_DestroyTexture(m_pCart_back); //Texture 제거
     //SDL_DestroyRect();  << ?
     SDL_Quit();

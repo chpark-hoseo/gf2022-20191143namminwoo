@@ -37,10 +37,9 @@ private:
 	// 대상 사각형
 	SDL_Rect m_destinationRectangle;
 
-	//SDL_Texture* m_pCart_back;
-	//SDL_Rect m_Cart_Back_SRect;
-	//SDL_Rect m_Cart_Back_DRect;
-
+	SDL_Texture* o_pTexture;
+	SDL_Rect o_sourceRectangle;
+	SDL_Rect o_destinationRectangle;
 
 
 

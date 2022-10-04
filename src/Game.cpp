@@ -31,19 +31,10 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         SDL_FreeSurface(pTempSurface);
         m_destinationRectangle.w = m_sourceRectangle.w = 147;
         m_destinationRectangle.h = m_sourceRectangle.h = 154;
-        m_destinationRectangle.x = m_sourceRectangle.x = 0;
-        m_destinationRectangle.y = m_sourceRectangle.y = 0;
-    }
-    {
-        SDL_Surface* oTempSurface = SDL_LoadBMP("assets/Mush.bmp");
-        o_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, oTempSurface);
-        SDL_FreeSurface(oTempSurface);
-        o_destinationRectangle.w = o_sourceRectangle.w = 147;
-        o_destinationRectangle.h = o_sourceRectangle.h = 154;
-        o_sourceRectangle.x = 0;
-        o_sourceRectangle.y = 0;
-        o_destinationRectangle.x = 0;
-        o_destinationRectangle.y = 200;
+        m_sourceRectangle.x = 0;
+        m_sourceRectangle.y = 0;
+        m_destinationRectangle.x = 400;
+        m_destinationRectangle.y = 346;
     }
 
     m_bRunning = true;
@@ -52,39 +43,27 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-    ////최적화 더 가능할거라 예상 중
-    //if (x == 0) //이미지가 오른쪽으로 가는 경우
-    //{
-    //    m_destinationRectangle.x += 1;
-    //    SDL_Delay(5);
-    //    if (m_destinationRectangle.x == 567) //이미지가 오른쪽 최후방에 닿았을 때 변수 전환
-    //    {
-    //        x = 1;
-    //    }
-    //}
-    //else if (x == 1) //이미지가 왼쪽으로 가는 경우
-    //{
-    //    m_destinationRectangle.x -= 1;
-    //    SDL_Delay(5);
-    //    if (m_destinationRectangle.x == 0) //이미지가 왼쪽 최후방에 닿았을 때 변수 전환
-    //    {
-    //        x = 0;
-    //    }
-    //}
-    //if (m_destinationRectangle.x == 567)
-    //{
-    //    x = x *+1;
-    //}
-    //else if (m_destinationRectangle.x == 0)
-    //{
-    //    x = x * -1;
-    //}
-    //m_destinationRectangle.x += x;
-    //SDL_Delay(5);
+    if (m_destinationRectangle.x == 0)
+    {
+        x = 1;
+    }
+    else if(m_destinationRectangle.x == 853)
+    {
+        x = x * -1;
+    }
+    m_destinationRectangle.x += x;
+    SDL_Delay(5);
 
     m_sourceRectangle.x = 147 * ((SDL_GetTicks()/150) % 5);
 
-    o_sourceRectangle.x = 147 * ((SDL_GetTicks() / 50) % 5);
+    //if (_kbhit())
+    //{
+    //    key = _getch();
+    //    if (key == 'a')
+    //    {
+    //        m_destinationRectangle.x -= 1;
+    //    }
+    //}
 }
 
 void Game::render()
@@ -92,10 +71,15 @@ void Game::render()
     //RenderClear = 화면지움
     SDL_RenderClear(m_pRenderer);
     //RenderCopy = 그리기 수행
-   // SDL_RenderCopy(m_pRenderer, m_pCart_back, &m_Cart_Back_SRect, &m_Cart_Back_DRect);
-    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
-    SDL_RenderCopy(m_pRenderer, o_pTexture, &o_sourceRectangle, &o_destinationRectangle);
-    
+    if (x == -1)
+    {
+        SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+    }
+    else
+    {
+        SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle,
+            NULL, NULL, SDL_FLIP_HORIZONTAL);
+    }   
     //SDL_FLIP -> NONE = 원본상태, _VERTICAL = 상하 뒤집기, HORIZONTAL = 좌우 뒤집기
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
@@ -128,7 +112,6 @@ void Game::clean()
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_DestroyTexture(m_pTexture); //Texture 제거 추가
-    SDL_DestroyTexture(o_pTexture);
   //  SDL_DestroyTexture(m_pCart_back); //Texture 제거
     //SDL_DestroyRect();  << ?
     SDL_Quit();

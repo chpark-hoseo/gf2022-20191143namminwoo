@@ -14,7 +14,7 @@ public:
 	bool running();
 	void handleEvents();
 	void clean();
-
+	void keyPad();
 	//int SDL_RenderCopyEx(SDL_Renderer* renderer,
 	//	SDL_Texture* texture,
 	//	const SDL_Rect* srcrect,

@@ -54,15 +54,20 @@ void Game::update()
     //m_destinationRectangle.x += x;
     //SDL_Delay(5);
     //m_sourceRectangle.x = 147 * ((SDL_GetTicks() / 150) % 5);
+    keyPad();
+}
 
-    if (currentKeyStates[SDL_SCANCODE_A])
+void Game::keyPad()
+{
+
+    if (currentKeyStates[SDL_SCANCODE_LEFT])
     {
         x = -1;
         m_destinationRectangle.x += x;
         m_sourceRectangle.x = 147 * ((SDL_GetTicks() / 150) % 5);
         SDL_Delay(3);
     }
-    else if (currentKeyStates[SDL_SCANCODE_D])
+    else if (currentKeyStates[SDL_SCANCODE_RIGHT])
     {
         x = 1;
         m_destinationRectangle.x += x;

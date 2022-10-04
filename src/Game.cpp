@@ -31,7 +31,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         SDL_FreeSurface(pTempSurface);
         m_destinationRectangle.w = m_sourceRectangle.w = 147;
         m_destinationRectangle.h = m_sourceRectangle.h = 154;
-        m_sourceRectangle.x = 0;
+        m_sourceRectangle.x = 589;
         m_sourceRectangle.y = 0;
         m_destinationRectangle.x = 400;
         m_destinationRectangle.y = 346;
@@ -43,27 +43,36 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-    if (m_destinationRectangle.x == 0)
+    //if (m_destinationRectangle.x == 0)
+    //{
+    //    x = 1;
+    //}
+    //else if(m_destinationRectangle.x == 853)
+    //{
+    //    x = x * -1;
+    //}
+    //m_destinationRectangle.x += x;
+    //SDL_Delay(5);
+    //m_sourceRectangle.x = 147 * ((SDL_GetTicks() / 150) % 5);
+
+    if (currentKeyStates[SDL_SCANCODE_A])
+    {
+        x = -1;
+        m_destinationRectangle.x += x;
+        m_sourceRectangle.x = 147 * ((SDL_GetTicks() / 150) % 5);
+        SDL_Delay(3);
+    }
+    else if (currentKeyStates[SDL_SCANCODE_D])
     {
         x = 1;
+        m_destinationRectangle.x += x;
+        m_sourceRectangle.x = 147 * ((SDL_GetTicks() / 150) % 5);
+        SDL_Delay(3);
     }
-    else if(m_destinationRectangle.x == 853)
+    else
     {
-        x = x * -1;
+        m_sourceRectangle.x = 589;
     }
-    m_destinationRectangle.x += x;
-    SDL_Delay(5);
-
-    m_sourceRectangle.x = 147 * ((SDL_GetTicks()/150) % 5);
-
-    //if (_kbhit())
-    //{
-    //    key = _getch();
-    //    if (key == 'a')
-    //    {
-    //        m_destinationRectangle.x -= 1;
-    //    }
-    //}
 }
 
 void Game::render()
@@ -92,7 +101,6 @@ bool Game::running()
 
 void Game::handleEvents()
 {
-    SDL_Event event;
     /*if (SDL_PollEvent(&event))*/
     while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내 동작 가능하게 만들기 위해서라고 추측함
     {
@@ -112,7 +120,5 @@ void Game::clean()
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_DestroyTexture(m_pTexture); //Texture 제거 추가
-  //  SDL_DestroyTexture(m_pCart_back); //Texture 제거
-    //SDL_DestroyRect();  << ?
     SDL_Quit();
 }

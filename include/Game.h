@@ -39,6 +39,9 @@ private:
 	// 대상 사각형
 	SDL_Rect m_destinationRectangle;
 
+	SDL_Event event;
+
+	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
 
 	//typedef struct SDL_Rect

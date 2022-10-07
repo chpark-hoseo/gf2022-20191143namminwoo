@@ -1,5 +1,6 @@
 #include "Game.h"
-
+//#include "SDL_image.h"
+#include <SDL2/SDL_image.h>
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) 
@@ -11,7 +12,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
             if (m_pRenderer != 0) {
                 SDL_SetRenderDrawColor(
-                    m_pRenderer, 255, 255, 255, 255);
+                    m_pRenderer, 255, 255, 0, 255);
             }
             else {
                 return false; // 랜더러 생성 실패
@@ -26,57 +27,44 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     }
     //텍스처 생성
     {
-        SDL_Surface* pTempSurface = SDL_LoadBMP("assets/Mush.bmp");
+        SDL_Surface* pTempSurface = IMG_Load("Assets/animate-alpha.png");        
         m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
         SDL_FreeSurface(pTempSurface);
-        m_destinationRectangle.w = m_sourceRectangle.w = 147;
-        m_destinationRectangle.h = m_sourceRectangle.h = 154;
-        m_sourceRectangle.x = 589;
+        m_destinationRectangle.w = m_sourceRectangle.w = 128;
+        m_destinationRectangle.h = m_sourceRectangle.h = 82;
+        m_destinationRectangle.x = m_sourceRectangle.x = 0;
         m_sourceRectangle.y = 0;
-        m_destinationRectangle.x = 400;
-        m_destinationRectangle.y = 346;
+        m_destinationRectangle.y = 400;
     }
-
     m_bRunning = true;
     return true;
 }
 
 void Game::update()
 {
-    //if (m_destinationRectangle.x == 0)
-    //{
-    //    x = 1;
-    //}
-    //else if(m_destinationRectangle.x == 853)
-    //{
-    //    x = x * -1;
-    //}
-    //m_destinationRectangle.x += x;
-    //SDL_Delay(5);
-    //m_sourceRectangle.x = 147 * ((SDL_GetTicks() / 150) % 5);
-    keyPad();
+
+   keyPad();
 }
 
 void Game::keyPad()
 {
-
     if (currentKeyStates[SDL_SCANCODE_LEFT])
     {
         x = -1;
         m_destinationRectangle.x += x;
-        m_sourceRectangle.x = 147 * ((SDL_GetTicks() / 150) % 5);
+        m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
         SDL_Delay(3);
     }
     else if (currentKeyStates[SDL_SCANCODE_RIGHT])
     {
         x = 1;
         m_destinationRectangle.x += x;
-        m_sourceRectangle.x = 147 * ((SDL_GetTicks() / 150) % 5);
+        m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
         SDL_Delay(3);
     }
     else
     {
-        m_sourceRectangle.x = 589;
+        m_sourceRectangle.x = 256;
     }
 }
 
@@ -87,14 +75,13 @@ void Game::render()
     //RenderCopy = 그리기 수행
     if (x == -1)
     {
-        SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+        SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle,
+            NULL, NULL, SDL_FLIP_HORIZONTAL);
     }
     else
     {
-        SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle,
-            NULL, NULL, SDL_FLIP_HORIZONTAL);
-    }   
-    //SDL_FLIP -> NONE = 원본상태, _VERTICAL = 상하 뒤집기, HORIZONTAL = 좌우 뒤집기
+        SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle); 
+    }
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
 }

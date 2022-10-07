@@ -28,7 +28,7 @@ private:
 	SDL_Renderer* m_pRenderer;
 
 	bool m_bRunning;
-	int x=1;
+	int x = 1, y = 1;
 	char key;
 	//int x = 0; //이미지 좌우 반복 경우를 위한 변수 선언
 

@@ -15,13 +15,7 @@ public:
 	void handleEvents();
 	void clean();
 	void keyPad();
-	//int SDL_RenderCopyEx(SDL_Renderer* renderer,
-	//	SDL_Texture* texture,
-	//	const SDL_Rect* srcrect,
-	//	const SDL_Rect* dstrect,
-	//	const double angle,
-	//	const SDL_Point* center,
-	//	const SDL_RendererFlip flip);
+
 
 private:
 	SDL_Window* m_pWindow;
@@ -42,6 +36,9 @@ private:
 	SDL_Event event;
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+
+	TextureManager m_textureManager;
+	int m_currentFrame;
 
 
 	//typedef struct SDL_Rect

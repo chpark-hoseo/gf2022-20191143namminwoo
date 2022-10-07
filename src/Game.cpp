@@ -1,6 +1,6 @@
 #include "Game.h"
 //#include "SDL_image.h"
-#include <SDL2/SDL_image.h>
+//#include <SDL2/SDL_image.h>
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) 

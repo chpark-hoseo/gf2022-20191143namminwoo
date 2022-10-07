@@ -15,13 +15,8 @@ public:
 	void handleEvents();
 	void clean();
 	void keyPad();
-	//int SDL_RenderCopyEx(SDL_Renderer* renderer,
-	//	SDL_Texture* texture,
-	//	const SDL_Rect* srcrect,
-	//	const SDL_Rect* dstrect,
-	//	const double angle,
-	//	const SDL_Point* center,
-	//	const SDL_RendererFlip flip);
+	void Jump();
+
 
 private:
 	SDL_Window* m_pWindow;
@@ -41,8 +36,17 @@ private:
 
 	SDL_Event event;
 
+	SDL_Texture* o_pTexture;
+	SDL_Rect o_sourceRectangle;
+	SDL_Rect o_destinationRectangle;
+
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
+	//점프를 위한 변수
+	float JumpTime = 0.f;
+	float JumpHeight = 0;
+	float JumpPower = 50.f;
+	bool m_JumpPress = false;
 
 	//typedef struct SDL_Rect
 	//{

@@ -46,6 +46,16 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         o_destinationRectangle.x = 500;
         o_destinationRectangle.y = o_sourceRectangle.y = 0;
     }
+    {//앞으로 점프 강아지
+        SDL_Surface* pTempSurface = IMG_Load("Assets/animate-alpha.png");
+        f_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+        SDL_FreeSurface(pTempSurface);
+        f_destinationRectangle.w = f_sourceRectangle.w = 128;
+        f_destinationRectangle.h = f_sourceRectangle.h = 82;
+        f_destinationRectangle.x = f_sourceRectangle.x = 0;
+        f_sourceRectangle.y = 0;
+        f_destinationRectangle.y = 200;
+    }
     m_bRunning = true;
     return true;
 }
@@ -53,6 +63,45 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 void Game::update()
 {
    keyPad();
+
+   //for (i; i > 0; i--)
+   //{
+   //    m_destinationRectangle.y -= i;
+   //    std::cout << m_destinationRectangle.y << std::endl;
+   //    SDL_Delay(5);
+   //}
+   //for (k; k < 11; k++)
+   //{
+   //    m_destinationRectangle.y += k;
+   //    std::cout << m_destinationRectangle.y << std::endl;
+   //    SDL_Delay(5);
+   //}
+
+   //물체 점프 구현
+   m_destinationRectangle.y += j;
+   //SDL_Delay(5);
+   if (m_destinationRectangle.y<350)
+   {
+       j = 1;
+   }
+   else if (m_destinationRectangle.y > 401)
+   {
+       j = 0;
+   }
+
+   //물체 앞으로 점프 구현
+   f_destinationRectangle.y += j1;
+   f_destinationRectangle.x += j2;
+   //SDL_Delay(5);
+   if (f_destinationRectangle.y < 150)
+   {
+       j1 = 1;
+   }
+   else if (f_destinationRectangle.y > 201)
+   {
+       j1 = 0;
+       j2 = 0;
+   }
 
    //물체 떨어지는거 구현
    o_destinationRectangle.y += y;
@@ -72,30 +121,38 @@ void Game::keyPad()
         x = -1;
         m_destinationRectangle.x += x;
         m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
-        SDL_Delay(3);
+        SDL_Delay(1);
     }
     else if (currentKeyStates[SDL_SCANCODE_RIGHT])
     {
         x = 1;
         m_destinationRectangle.x += x;
         m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
-        SDL_Delay(3);
+        SDL_Delay(1);
     }
-    else if (currentKeyStates[SDL_SCANCODE_SPACE])
-    {
-        Jump();
-        m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
-    }
+    //else if (currentKeyStates[SDL_SCANCODE_SPACE])
+    //{
+    //    for (i = 10; i > 0; i--)
+    //    {
+    //        m_destinationRectangle.y -= i;
+    //        SDL_Delay(5);
+    //        std::cout << m_destinationRectangle.y << std::endl;
+    //        m_sourceRectangle.x = 256;
+    //    }
+    //    for (k = 0; k < 11; k++)
+    //    {
+    //        m_destinationRectangle.y += k;
+    //        SDL_Delay(5);
+    //        std::cout << m_destinationRectangle.y << std::endl;
+    //        m_sourceRectangle.x = 256;
+    //    }
+    //}
     else
     {
-        m_sourceRectangle.x = 256;
+        m_sourceRectangle.x = 0;
     }
 }
 
-void Game::Jump()
-{
-
-}
 
 void Game::render()
 {
@@ -112,6 +169,7 @@ void Game::render()
         SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle); 
     }
     SDL_RenderCopy(m_pRenderer, o_pTexture, &o_sourceRectangle, &o_destinationRectangle);
+    SDL_RenderCopy(m_pRenderer, f_pTexture, &f_sourceRectangle, &f_destinationRectangle);
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
 }
@@ -124,7 +182,8 @@ bool Game::running()
 void Game::handleEvents()
 {
     /*if (SDL_PollEvent(&event))*/
-    while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내 동작 가능하게 만들기 위해서라고 추측함
+    while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내
+        //동작 가능하게 만들기 위해서라고 추측함
     {
         switch (event.type)
         {

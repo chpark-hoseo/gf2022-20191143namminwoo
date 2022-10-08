@@ -1,6 +1,5 @@
 #include "Game.h"
-//#include "SDL_image.h"
-//#include <SDL2/SDL_image.h>
+#include "TextureManager.h"
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) 
@@ -26,46 +25,53 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false; // SDL 초기화 실패
     }
     //텍스처 생성
-    {
-        SDL_Surface* pTempSurface = IMG_Load("Assets/animate-alpha.png");        
-        m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
-        SDL_FreeSurface(pTempSurface);
-        m_destinationRectangle.w = m_sourceRectangle.w = 128;
-        m_destinationRectangle.h = m_sourceRectangle.h = 82;
-        m_destinationRectangle.x = m_sourceRectangle.x = 0;
-        m_sourceRectangle.y = 0;
-        m_destinationRectangle.y = 400;
-    }
+    //{
+    //    SDL_Surface* pTempSurface = IMG_Load("Assets/animate-alpha.png");        
+    //    m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+    //    SDL_FreeSurface(pTempSurface);
+    //    m_destinationRectangle.w = m_sourceRectangle.w = 128;
+    //    m_destinationRectangle.h = m_sourceRectangle.h = 82;
+    //    m_destinationRectangle.x = m_sourceRectangle.x = 0;
+    //    m_sourceRectangle.y = 0;
+    //    m_destinationRectangle.y = 400;
+    //}
+
+    m_textureManager.load("Assets/animate-alpha.png", "animate", m_pRenderer);
+    //o_textureManager.load("Assets/Player_.png", "Player_", m_pRenderer);
+
     m_bRunning = true;
     return true;
 }
 
 void Game::update()
 {
+    m_currentFrame = ((SDL_GetTicks() / 100) % 6);
+    //o_currentFrame = ((SDL_GetTicks() / 100) % 5);
+    SDL_Delay(10);
 
-   keyPad();
+   //keyPad();
 }
 
 void Game::keyPad()
 {
-    if (currentKeyStates[SDL_SCANCODE_LEFT])
-    {
-        x = -1;
-        m_destinationRectangle.x += x;
-        m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
-        SDL_Delay(3);
-    }
-    else if (currentKeyStates[SDL_SCANCODE_RIGHT])
-    {
-        x = 1;
-        m_destinationRectangle.x += x;
-        m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
-        SDL_Delay(3);
-    }
-    else
-    {
-        m_sourceRectangle.x = 256;
-    }
+    //if (currentKeyStates[SDL_SCANCODE_LEFT])
+    //{
+    //    x = -1;
+    //    m_destinationRectangle.x += x;
+    //    m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
+    //    SDL_Delay(3);
+    //}
+    //else if (currentKeyStates[SDL_SCANCODE_RIGHT])
+    //{
+    //    x = 1;
+    //    m_destinationRectangle.x += x;
+    //    m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
+    //    SDL_Delay(3);
+    //}
+    //else
+    //{
+    //    m_sourceRectangle.x = 256;
+    //}
 }
 
 void Game::render()
@@ -73,21 +79,41 @@ void Game::render()
     //RenderClear = 화면지움
     SDL_RenderClear(m_pRenderer);
     //RenderCopy = 그리기 수행
-    if (x == -1)
-    {
-        SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle,
-            NULL, NULL, SDL_FLIP_HORIZONTAL);
-    }
-    else
-    {
-        SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle); 
-    }
+    //if (x == -1)
+    //{
+    //    SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle,
+    //        NULL, NULL, SDL_FLIP_HORIZONTAL);
+    //}
+    //else
+    //{
+    //    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle); 
+    //}
+
+    m_textureManager.draw("animate", 0,0, 128, 82, m_pRenderer);
+    m_textureManager.drawFrame("animate", 100, 100, 128, 82,
+        0, m_currentFrame, m_pRenderer);
+    //if (currentKeyStates[SDL_SCANCODE_LEFT])
+    //{
+    //    o_textureManager.drawFrame("Player_", 200, 200, 63, 63,
+    //        0, m_currentFrame, m_pRenderer);
+    //}
+    //else if((currentKeyStates[SDL_SCANCODE_RIGHT]))
+    //{
+    //    o_textureManager.drawFrame("Player_", 200, 200, 63, 63,
+    //        1, m_currentFrame, m_pRenderer);
+    //}
+    //else
+    //{
+    //    o_textureManager.draw("Player_", 200, 200, 63, 63, m_pRenderer);
+    //}
+
+
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
 }
 
 bool Game::running()
-{
+{   
     return m_bRunning;
 }
 
@@ -111,6 +137,6 @@ void Game::clean()
 {
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
-    SDL_DestroyTexture(m_pTexture); //Texture 제거 추가
+    //SDL_DestroyTexture(m_pTexture); //Texture 제거 추가
     SDL_Quit();
 }

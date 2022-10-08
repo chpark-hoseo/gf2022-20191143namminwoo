@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include "TextureManager.h"
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 500
 class Game
@@ -22,7 +23,7 @@ private:
 	SDL_Renderer* m_pRenderer;
 
 	bool m_bRunning;
-	int x = 1, y = 1;
+	//int x = 1, y = 1;
 	char key;
 	//int x = 0; //이미지 좌우 반복 경우를 위한 변수 선언
 
@@ -37,8 +38,8 @@ private:
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
-	TextureManager m_textureManager;
-	int m_currentFrame;
+	TextureManager m_textureManager, o_textureManager;
+	int m_currentFrame, o_currentFrame;
 
 
 	//typedef struct SDL_Rect

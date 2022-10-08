@@ -37,7 +37,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     //}
 
     m_textureManager.load("Assets/animate-alpha.png", "animate", m_pRenderer);
-    //o_textureManager.load("Assets/Player_.png", "Player_", m_pRenderer);
+    o_textureManager.load("Assets/Player_.png", "Player_", m_pRenderer);
 
     m_bRunning = true;
     return true;
@@ -46,9 +46,8 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 void Game::update()
 {
     m_currentFrame = ((SDL_GetTicks() / 100) % 6);
-    //o_currentFrame = ((SDL_GetTicks() / 100) % 5);
+    o_currentFrame = ((SDL_GetTicks() / 100) % 5);
     SDL_Delay(10);
-
    //keyPad();
 }
 
@@ -92,20 +91,20 @@ void Game::render()
     m_textureManager.draw("animate", 0,0, 128, 82, m_pRenderer);
     m_textureManager.drawFrame("animate", 100, 100, 128, 82,
         0, m_currentFrame, m_pRenderer);
-    //if (currentKeyStates[SDL_SCANCODE_LEFT])
-    //{
-    //    o_textureManager.drawFrame("Player_", 200, 200, 63, 63,
-    //        0, m_currentFrame, m_pRenderer);
-    //}
-    //else if((currentKeyStates[SDL_SCANCODE_RIGHT]))
-    //{
-    //    o_textureManager.drawFrame("Player_", 200, 200, 63, 63,
-    //        1, m_currentFrame, m_pRenderer);
-    //}
-    //else
-    //{
-    //    o_textureManager.draw("Player_", 200, 200, 63, 63, m_pRenderer);
-    //}
+    if (currentKeyStates[SDL_SCANCODE_LEFT])
+    {
+        o_textureManager.drawFrame("Player_", 200, 200, 65.8, 63,
+            0, m_currentFrame, m_pRenderer);
+    }
+    else if((currentKeyStates[SDL_SCANCODE_RIGHT]))
+    {
+        o_textureManager.drawFrame("Player_", 200, 200, 65.8, 63,
+            1, m_currentFrame, m_pRenderer);
+    }
+    else
+    {
+        o_textureManager.draw("Player_", 200, 200, 63, 63, m_pRenderer);
+    }
 
 
     //RenderPresent = 그린거 호출

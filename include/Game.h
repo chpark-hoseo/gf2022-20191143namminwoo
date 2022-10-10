@@ -46,7 +46,7 @@ private:
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
 	bool currentJump = false;
-	int m_JumpSpeed;
+	int m_JumpSpeed = 10;
 
 	//typedef struct SDL_Rect
 	//{

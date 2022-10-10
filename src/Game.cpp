@@ -120,29 +120,30 @@ void Game::keyPad()
     {
         if (currentJump == true)
         {
-            std::cout << currentJump << std::endl;
             return;
         }
-        else if (currentJump = false)
+        else if (currentJump == false)
         {
-            //std::cout << currentJump << std::endl;
-
-            //m_JumpSpeed = 10;
-            //m_destinationRectangle.y -= m_JumpSpeed; // 점프 주 코드
-            //m_JumpSpeed -= 2; //올라갈수록 속력 줄음 (10, 8, 6, 4, 2, 0)
-            //if (m_JumpSpeed == 0) //최고점 도달 
-            //{
-            //    currentJump = true; //코드 계속 입력을 방지
-            //    m_JumpSpeed -= 2; //내려오게 함
-            //}
-            //if (m_JumpSpeed > 10) //내려오고 나서 멈춤
-            //{
-            //    m_JumpSpeed = 0;
-            //    currentJump = false;
-            //}
-
-            std::cout << currentJump << std::endl;
+            for (int i = 0; i < 5; i++)
+            {
+                m_destinationRectangle.y -= m_JumpSpeed;
+                SDL_Delay(5);
+                m_JumpSpeed -= 2;
+            }
+            if (m_JumpSpeed == 0)
+            {
+                for (int k = 0; k < 5; k++)
+                {
+                    m_JumpSpeed += 2;
+                    SDL_Delay(5);
+                    m_destinationRectangle.y += m_JumpSpeed;
+                }
+            }
+            std::cout << "점프했음" << std::endl;
+            currentJump = true;
         }
+        std::cout << "점프 가능" << std::endl;
+        currentJump = false;
     }
     else
     {

@@ -64,44 +64,30 @@ void Game::update()
 {
    keyPad();
 
-   //for (i; i > 0; i--)
+   ////물체 점프 구현
+   //m_destinationRectangle.y += j;
+   ////SDL_Delay(5);
+   //if (m_destinationRectangle.y<350)
    //{
-   //    m_destinationRectangle.y -= i;
-   //    std::cout << m_destinationRectangle.y << std::endl;
-   //    SDL_Delay(5);
+   //    j = 1;
    //}
-   //for (k; k < 11; k++)
+   //else if (m_destinationRectangle.y > 401)
    //{
-   //    m_destinationRectangle.y += k;
-   //    std::cout << m_destinationRectangle.y << std::endl;
-   //    SDL_Delay(5);
+   //    j = 0;
    //}
-
-   //물체 점프 구현
-   m_destinationRectangle.y += j;
-   //SDL_Delay(5);
-   if (m_destinationRectangle.y<350)
-   {
-       j = 1;
-   }
-   else if (m_destinationRectangle.y > 401)
-   {
-       j = 0;
-   }
-
-   //물체 앞으로 점프 구현
-   f_destinationRectangle.y += j1;
-   f_destinationRectangle.x += j2;
-   //SDL_Delay(5);
-   if (f_destinationRectangle.y < 150)
-   {
-       j1 = 1;
-   }
-   else if (f_destinationRectangle.y > 201)
-   {
-       j1 = 0;
-       j2 = 0;
-   }
+   ////물체 앞으로 점프 구현
+   //f_destinationRectangle.y += j1;
+   //f_destinationRectangle.x += j2;
+   ////SDL_Delay(5);
+   //if (f_destinationRectangle.y < 150)
+   //{
+   //    j1 = 1;
+   //}
+   //else if (f_destinationRectangle.y > 201)
+   //{
+   //    j1 = 0;
+   //    j2 = 0;
+   //}
 
    //물체 떨어지는거 구현
    o_destinationRectangle.y += y;
@@ -130,23 +116,34 @@ void Game::keyPad()
         m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
         SDL_Delay(1);
     }
-    //else if (currentKeyStates[SDL_SCANCODE_SPACE])
-    //{
-    //    for (i = 10; i > 0; i--)
-    //    {
-    //        m_destinationRectangle.y -= i;
-    //        SDL_Delay(5);
-    //        std::cout << m_destinationRectangle.y << std::endl;
-    //        m_sourceRectangle.x = 256;
-    //    }
-    //    for (k = 0; k < 11; k++)
-    //    {
-    //        m_destinationRectangle.y += k;
-    //        SDL_Delay(5);
-    //        std::cout << m_destinationRectangle.y << std::endl;
-    //        m_sourceRectangle.x = 256;
-    //    }
-    //}
+    else if (currentKeyStates[SDL_SCANCODE_SPACE])
+    {
+        if (currentJump == true)
+        {
+            std::cout << currentJump << std::endl;
+            return;
+        }
+        else if (currentJump = false)
+        {
+            //std::cout << currentJump << std::endl;
+
+            //m_JumpSpeed = 10;
+            //m_destinationRectangle.y -= m_JumpSpeed; // 점프 주 코드
+            //m_JumpSpeed -= 2; //올라갈수록 속력 줄음 (10, 8, 6, 4, 2, 0)
+            //if (m_JumpSpeed == 0) //최고점 도달 
+            //{
+            //    currentJump = true; //코드 계속 입력을 방지
+            //    m_JumpSpeed -= 2; //내려오게 함
+            //}
+            //if (m_JumpSpeed > 10) //내려오고 나서 멈춤
+            //{
+            //    m_JumpSpeed = 0;
+            //    currentJump = false;
+            //}
+
+            std::cout << currentJump << std::endl;
+        }
+    }
     else
     {
         m_sourceRectangle.x = 0;

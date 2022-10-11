@@ -63,7 +63,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 void Game::update()
 {
    keyPad();
-
+   Jump();
    ////물체 점프 구현
    //m_destinationRectangle.y += j;
    ////SDL_Delay(5);
@@ -118,32 +118,7 @@ void Game::keyPad()
     }
     else if (currentKeyStates[SDL_SCANCODE_SPACE])
     {
-        if (currentJump == true)
-        {
-            return;
-        }
-        else if (currentJump == false)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                m_destinationRectangle.y -= m_JumpSpeed;
-                SDL_Delay(5);
-                m_JumpSpeed -= 2;
-            }
-            if (m_JumpSpeed == 0)
-            {
-                for (int k = 0; k < 5; k++)
-                {
-                    m_JumpSpeed += 2;
-                    SDL_Delay(5);
-                    m_destinationRectangle.y += m_JumpSpeed;
-                }
-            }
-            std::cout << "점프했음" << std::endl;
-            currentJump = true;
-        }
-        std::cout << "점프 가능" << std::endl;
-        currentJump = false;
+        currentJump = true;       
     }
     else
     {
@@ -151,7 +126,34 @@ void Game::keyPad()
     }
 }
 
+void Game::Jump()
+{
+    if (currentJump == false) return; //키 한번 입력 후 중복 입력 방지
 
+    else if (currentJump == true)
+    {
+        m_sourceRectangle.x = 256; //점프 모션으로 이미지 고정
+        std::cout << m_destinationRectangle.y << " " << m_JumpSpeed << std::endl;
+        m_destinationRectangle.y += m_JumpSpeed;
+        //m_destinationRectangle.x += x*15;   //없으면 제자리 점프, 있으면 전방으로 점프
+        SDL_Delay(20);
+        m_JumpSpeed += 10;
+        if (m_JumpSpeed == 60)
+        {
+            currentJump = false;
+            m_JumpSpeed = -50;
+        }
+ /*       if (m_JumpSpeed < 0)
+        {
+            m_JumpSpeed += 2;
+        }
+        else if (m_JumpSpeed == 0)
+        {
+            m_JumpSpeed += 2;
+        }*/
+
+    }
+}
 void Game::render()
 {
     //RenderClear = 화면지움
@@ -181,7 +183,7 @@ void Game::handleEvents()
 {
     /*if (SDL_PollEvent(&event))*/
     while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내
-        //동작 가능하게 만들기 위해서라고 추측함
+                                 //동작 가능하게 만들기 위해서라고 추측함
     {
         switch (event.type)
         {

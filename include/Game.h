@@ -15,6 +15,7 @@ public:
 	void handleEvents();
 	void clean();
 	void keyPad();
+	void Jump();
 
 
 private:
@@ -46,7 +47,7 @@ private:
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
 	bool currentJump = false;
-	int m_JumpSpeed = 10;
+	int m_JumpSpeed = -50;
 
 	//typedef struct SDL_Rect
 	//{

@@ -40,7 +40,7 @@ private:
 
 	TextureManager m_textureManager, o_textureManager;
 	int m_currentFrame, o_currentFrame;
-
+	int x=1; //이미지 서있는 상태를 위한 변수
 
 	//typedef struct SDL_Rect
 	//{

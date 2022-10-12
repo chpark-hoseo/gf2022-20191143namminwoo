@@ -77,33 +77,32 @@ void Game::render()
 {
     //RenderClear = 화면지움
     SDL_RenderClear(m_pRenderer);
-    //RenderCopy = 그리기 수행
-    //if (x == -1)
-    //{
-    //    SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle,
-    //        NULL, NULL, SDL_FLIP_HORIZONTAL);
-    //}
-    //else
-    //{
-    //    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle); 
-    //}
 
     m_textureManager.draw("animate", 0,0, 128, 82, m_pRenderer);
     m_textureManager.drawFrame("animate", 100, 100, 128, 82,
         0, m_currentFrame, m_pRenderer);
     if (currentKeyStates[SDL_SCANCODE_LEFT])
     {
-        o_textureManager.drawFrame("Player_", 200, 200, 65.8, 63,
-            0, m_currentFrame, m_pRenderer);
+        x = 1; //왼쪽을 보고 있을때는 case 1
+        o_textureManager.drawFrame("Player_", 200, 200, 65, 63,
+            0, o_currentFrame, m_pRenderer);
     }
     else if((currentKeyStates[SDL_SCANCODE_RIGHT]))
     {
-        o_textureManager.drawFrame("Player_", 200, 200, 65.8, 63,
-            1, m_currentFrame, m_pRenderer);
+        x = -1; //오른쪽을 보고 있을 때는 case 2
+        o_textureManager.drawFrame("Player_", 200, 200, 65, 63,
+            1, o_currentFrame, m_pRenderer);
     }
-    else
+    else //멈출 때
     {
-        o_textureManager.draw("Player_", 200, 200, 63, 63, m_pRenderer);
+        if (x == 1) //왼쪽을 보다가 멈출 때
+        {
+            o_textureManager.draw("Player_", 200, 200, 63, 63, m_pRenderer);
+        }
+        else if (x == -1) //오른쪽을 보다가 멈출 때
+        {
+            o_textureManager.drawFrame("Player_", 200, 200, 63, 63, 1, NULL,m_pRenderer);
+        }
     }
 
 

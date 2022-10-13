@@ -18,6 +18,7 @@ public:
         SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
 
+
 private:
     std::map<std::string, SDL_Texture*> m_textureMap;
 

@@ -16,7 +16,8 @@ public:
 	void handleEvents();
 	void clean();
 	void keyPad();
-
+	void Jump();
+	void stop();
 
 private:
 	SDL_Window* m_pWindow;
@@ -41,6 +42,11 @@ private:
 	TextureManager m_textureManager, o_textureManager;
 	int m_currentFrame, o_currentFrame;
 	int x=1; //이미지 서있는 상태를 위한 변수
+	int move_x = 200, move_y = 200;;
+	
+	//점프를 위한 변수들
+	bool currentJump = false;
+	int m_JumpSpeed = -50;
 
 	//typedef struct SDL_Rect
 	//{

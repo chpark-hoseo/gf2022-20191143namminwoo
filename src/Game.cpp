@@ -45,6 +45,8 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
+    keyPad();
+    Jump();
     m_currentFrame = ((SDL_GetTicks() / 100) % 6);
     o_currentFrame = ((SDL_GetTicks() / 100) % 5);
     SDL_Delay(10);
@@ -53,26 +55,37 @@ void Game::update()
 
 void Game::keyPad()
 {
-    //if (currentKeyStates[SDL_SCANCODE_LEFT])
-    //{
-    //    x = -1;
-    //    m_destinationRectangle.x += x;
-    //    m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
-    //    SDL_Delay(3);
-    //}
-    //else if (currentKeyStates[SDL_SCANCODE_RIGHT])
-    //{
-    //    x = 1;
-    //    m_destinationRectangle.x += x;
-    //    m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 150) % 6);
-    //    SDL_Delay(3);
-    //}
-    //else
-    //{
-    //    m_sourceRectangle.x = 256;
-    //}
+    if (currentKeyStates[SDL_SCANCODE_LEFT])
+    {
+        move_x -= 1;
+    }
+    else if (currentKeyStates[SDL_SCANCODE_RIGHT])
+    {
+        move_x += 1;
+    }
+    else if (currentKeyStates[SDL_SCANCODE_SPACE])
+    {
+        currentJump = true;
+    }
 }
 
+void Game::Jump()
+{
+    if (currentJump == false) return; //키 한번 입력 후 중복 입력 방지
+
+    else if (currentJump == true)
+    { 
+        move_y += m_JumpSpeed;
+        move_x += x*-15;   //없으면 제자리 점프, 있으면 전방으로 점프
+        SDL_Delay(20);
+        m_JumpSpeed += 10;
+        if (m_JumpSpeed == 60)
+        {
+            currentJump = false;
+            m_JumpSpeed = -50;
+        }
+    }
+}
 void Game::render()
 {
     //RenderClear = 화면지움
@@ -81,33 +94,42 @@ void Game::render()
     m_textureManager.draw("animate", 0,0, 128, 82, m_pRenderer);
     m_textureManager.drawFrame("animate", 100, 100, 128, 82,
         0, m_currentFrame, m_pRenderer);
+
     if (currentKeyStates[SDL_SCANCODE_LEFT])
     {
         x = 1; //왼쪽을 보고 있을때는 case 1
-        o_textureManager.drawFrame("Player_", 200, 200, 65, 63,
+        o_textureManager.drawFrame("Player_", move_x, move_y, 65, 63,
             0, o_currentFrame, m_pRenderer);
     }
     else if((currentKeyStates[SDL_SCANCODE_RIGHT]))
     {
         x = -1; //오른쪽을 보고 있을 때는 case 2
-        o_textureManager.drawFrame("Player_", 200, 200, 65, 63,
+        o_textureManager.drawFrame("Player_", move_x, move_y, 65, 63,
             1, o_currentFrame, m_pRenderer);
+    }
+    else if (currentKeyStates[SDL_SCANCODE_SPACE])
+    {
+        stop();
     }
     else //멈출 때
     {
-        if (x == 1) //왼쪽을 보다가 멈출 때
-        {
-            o_textureManager.draw("Player_", 200, 200, 63, 63, m_pRenderer);
-        }
-        else if (x == -1) //오른쪽을 보다가 멈출 때
-        {
-            o_textureManager.drawFrame("Player_", 200, 200, 63, 63, 1, NULL,m_pRenderer);
-        }
+        stop();
     }
-
 
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
+}
+
+void Game::stop() //움직이다가 멈추는 경우를 위한 함수
+{
+    if (x == 1) //왼쪽을 보다가 멈출 때
+    {
+        o_textureManager.draw("Player_", move_x, move_y, 65, 63, m_pRenderer);
+    }
+    else if (x == -1) //오른쪽을 보다가 멈출 때
+    {
+        o_textureManager.drawFrame("Player_", move_x, move_y, 65, 63, 1, NULL, m_pRenderer);
+    }
 }
 
 bool Game::running()

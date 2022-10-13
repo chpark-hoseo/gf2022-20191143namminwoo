@@ -1,8 +1,12 @@
 #pragma once
 #include "main.h"
 #include "TextureManager.h"
-#define SCREEN_WIDTH 1000
+
+#define SCREEN_WIDTH 1000 //보이는 화면 넓이
 #define SCREEN_HEIGHT 500
+#define LEVEL_WIDTH 1920 //전체 화면 넓이
+#define LEVEL_HEIGHT 1080
+
 class Game
 {
 public:
@@ -18,6 +22,7 @@ public:
 	void keyPad();
 	void Jump();
 	void stop();
+	void camera();
 
 private:
 	SDL_Window* m_pWindow;
@@ -42,11 +47,14 @@ private:
 	TextureManager m_textureManager, o_textureManager;
 	int m_currentFrame, o_currentFrame;
 	int x=1; //이미지 서있는 상태를 위한 변수
-	int move_x = 200, move_y = 200;;
+	int move_x = 200, move_y = 200;
 	
 	//점프를 위한 변수들
 	bool currentJump = false;
 	int m_JumpSpeed = -50;
+
+	//카메라 이동을 위한 변수들
+	int cameraX = 0, cameraY = 0;
 
 	//typedef struct SDL_Rect
 	//{

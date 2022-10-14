@@ -61,7 +61,7 @@ bool Game::running()
 
 void Game::handleEvents()
 {
-    while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내 동작 가능하게 만들기 위해서라고 추측함
+    while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내 동작 가능하게 만들기 위해서 라고 추측함
     {
         switch (event.type)
         {
@@ -78,5 +78,6 @@ void Game::clean()
 {
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
+   // SDL_DestroyTexture();
     SDL_Quit();
 }

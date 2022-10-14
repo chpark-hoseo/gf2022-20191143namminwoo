@@ -1,6 +1,7 @@
 #include <SDL2/SDL_image.h>
 #include "TextureManager.h"
 
+//공간을 잡아주는 코드, 없으면 실행안됨
 TextureManager* TextureManager::s_pInstance = 0;
 
 bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer* pRenderer)

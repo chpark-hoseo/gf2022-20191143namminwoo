@@ -34,7 +34,7 @@ private:
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
-	int m_currentFrame, o_currentFrame;
+	int m_currentFrame = 0, o_currentFrame;
 	int x=1; //이미지 서있는 상태를 위한 변수
 	int move_x = 400, move_y = 9895;
 	
@@ -44,6 +44,8 @@ private:
 
 	//공격을 위한 변수들
 	bool currentHit = false;
+	bool practice = false;
+	int hitTime = 0;
 	//카메라 이동을 위한 변수들
 	int cameraX = 0, cameraY = 0;
 

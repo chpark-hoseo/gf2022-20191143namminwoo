@@ -26,146 +26,32 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false; // SDL 초기화 실패
     }
 
-    m_textureManager.load("Assets/animate-alpha.png", "animate", m_pRenderer);
-    o_textureManager.load("Assets/Player_.png", "Player_", m_pRenderer);
-    m_textureManager.load("Assets/Maple_bg.jfif", "Maple_bg", m_pRenderer);
-
+    if (!TheTextureManager::Instance()->load("Assets/animate-alpha.png", "animate", m_pRenderer))
+    {
+        return false;
+    }
     m_bRunning = true;
     return true;
 }
 
 void Game::update()
 {
-    keyPad();
-    Jump();
-    camera();
-
     m_currentFrame = ((SDL_GetTicks() / 100) % 6);
-    o_currentFrame = ((SDL_GetTicks() / 100) % 5);
-
     SDL_Delay(10);
-   //keyPad();
-}
-
-void Game::keyPad()
-{
-    if (currentKeyStates[SDL_SCANCODE_LEFT])
-    {
-        if (move_x == 0)
-        {
-            std::cout << move_x << std::endl;
-            std::cout << cameraX << std::endl;
-            move_x -= 0;
-        }
-        else
-        {
-            std::cout << move_x << std::endl;
-            std::cout << cameraX << std::endl;
-            move_x -= 5;
-        }
-    }
-    else if (currentKeyStates[SDL_SCANCODE_RIGHT])
-    {
-        if (move_x >= 1855)
-        {
-            move_x += 0;
-        }
-        else
-        {
-            move_x += 5;
-        }
-    }
-    else if (currentKeyStates[SDL_SCANCODE_SPACE])
-    {
-        currentJump = true;
-    }
-}
-void Game::Jump()
-{
-    if (currentJump == false) return; //키 한번 입력 후 중복 입력 방지
-
-    else if (currentJump == true)
-    { 
-        move_y += m_JumpSpeed;
-        move_x += x*-15;   //없으면 제자리 점프, 있으면 전방으로 점프
-        SDL_Delay(20);
-        m_JumpSpeed += 10;
-        if (m_JumpSpeed == 60)
-        {
-            currentJump = false;
-            m_JumpSpeed = -50;
-        }
-    }
-}
-void Game::camera()
-{
-    cameraX = (move_x + 66 / 2) - SCREEN_WIDTH / 2;
-    cameraY = (move_y + 64 / 2) - SCREEN_HEIGHT / 2;
-
-    //Keep the camera in bounds
-    if (cameraX < 0)
-    {
-        cameraX = 0;
-    }
-    if (cameraY < 0)
-    {
-        cameraY = 0;
-    }
-    if (cameraX > LEVEL_WIDTH - SCREEN_WIDTH)
-    {
-        cameraX = LEVEL_WIDTH - SCREEN_WIDTH;
-    }
-    if (cameraY > LEVEL_HEIGHT - SCREEN_HEIGHT)
-    {
-        cameraY = LEVEL_HEIGHT - SCREEN_HEIGHT;
-    }
-
 }
 void Game::render()
 {
-    //RenderClear = 화면지움
-    SDL_RenderClear(m_pRenderer);
+    SDL_RenderClear(m_pRenderer);    //RenderClear = 화면지움
 
-    m_textureManager.draw("Maple_bg", -cameraX, -cameraY, 1920, 1080, m_pRenderer);
-    m_textureManager.draw("animate", 0,0, 128, 82, m_pRenderer);
-    m_textureManager.drawFrame("animate", 100, 100, 128, 82,
-        0, m_currentFrame, m_pRenderer);
+    TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82,
+        m_pRenderer);
 
-    if (currentKeyStates[SDL_SCANCODE_LEFT])
-    {
-        x = 1; //왼쪽을 보고 있을때는 case 1
-        o_textureManager.drawFrame("Player_", move_x - cameraX, move_y - cameraY, 66, 64,
-            0, o_currentFrame, m_pRenderer);
-    }
-    else if((currentKeyStates[SDL_SCANCODE_RIGHT]))
-    {
-        x = -1; //오른쪽을 보고 있을 때는 case 2
-        o_textureManager.drawFrame("Player_", move_x - cameraX, move_y - cameraY, 66, 64,
-            1, o_currentFrame, m_pRenderer);
-    }
-    else if (currentKeyStates[SDL_SCANCODE_SPACE]) //점프
-    {
-        stop();
-    }
-    else //멈출 때
-    {
-        stop();
-    }
+    TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128,
+        82, 0, m_currentFrame, m_pRenderer);
+
 
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
-}
-
-void Game::stop() //움직이다가 멈추는 경우를 위한 함수
-{
-    if (x == 1) //왼쪽을 보다가 멈출 때
-    {
-        o_textureManager.draw("Player_", move_x - cameraX, move_y - cameraY, 66, 64, m_pRenderer);
-    }
-    else if (x == -1) //오른쪽을 보다가 멈출 때
-    {
-        o_textureManager.drawFrame("Player_", move_x - cameraX, move_y - cameraY, 66, 64, 1, NULL, m_pRenderer);
-    }
 }
 
 bool Game::running()
@@ -175,7 +61,6 @@ bool Game::running()
 
 void Game::handleEvents()
 {
-    /*if (SDL_PollEvent(&event))*/
     while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내 동작 가능하게 만들기 위해서라고 추측함
     {
         switch (event.type)
@@ -193,6 +78,5 @@ void Game::clean()
 {
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
-    //SDL_DestroyTexture(m_pTexture); //Texture 제거 추가
     SDL_Quit();
 }

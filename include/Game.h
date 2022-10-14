@@ -44,5 +44,4 @@ private:
 
 	//카메라 이동을 위한 변수들
 	int cameraX = 0, cameraY = 0;
-
 };

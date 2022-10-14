@@ -30,6 +30,10 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
+    if (!TheTextureManager::Instance()->load("Assets/obstac.png", "Floor", m_pRenderer))
+    {
+        return false;
+    }
     if (!TheTextureManager::Instance()->load("Assets/m_Move2.png", "Player_", m_pRenderer))
     {
         return false;
@@ -38,7 +42,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
-    if (!TheTextureManager::Instance()->load("Assets/m_Jump.png", "Player_jump", m_pRenderer))
+    if (!TheTextureManager::Instance()->load("Assets/m_Smash.png", "Player_hit", m_pRenderer))
     {
         return false;
     }
@@ -52,7 +56,8 @@ void Game::update()
     Jump();
     camera();
 
-    o_currentFrame = ((SDL_GetTicks() / 100) % 5);
+    o_currentFrame = ((SDL_GetTicks() / 100) % 5); //5칸 프레임
+    m_currentFrame = ((SDL_GetTicks() / 100) % 4); //4칸 프레임
 
     SDL_Delay(10);
 }
@@ -144,7 +149,9 @@ void Game::render()
     SDL_RenderClear(m_pRenderer);
 
     TheTextureManager::Instance()->draw("Back", -cameraX, -cameraY, 1160, 10000,
-        m_pRenderer);
+        m_pRenderer); 
+    TheTextureManager::Instance()->draw("Floor", 50, 9900, 200, 75,
+            m_pRenderer);
 
     if (currentKeyStates[SDL_SCANCODE_LEFT])
     {
@@ -157,6 +164,21 @@ void Game::render()
         x = -1; //오른쪽을 보고 있을 때는 case 2
         TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
             87, 1, o_currentFrame, m_pRenderer);
+    }
+    else if ((currentKeyStates[SDL_SCANCODE_LCTRL])) //공격
+    {
+        if (x == 1)
+        {
+            SDL_Delay(5);
+            TheTextureManager::Instance()->drawFrame("Player_hit", move_x - cameraX + 10, move_y - cameraY - 15, 125,
+                112, 0, m_currentFrame, m_pRenderer);
+        }
+        else if (x == -1)
+        {
+            SDL_Delay(5);
+            TheTextureManager::Instance()->drawFrame("Player_hit", move_x - cameraX + 10, move_y - cameraY - 15, 125,
+                112, 1, m_currentFrame, m_pRenderer);
+        }
     }
     else if (currentJump == true) //점프
     {
@@ -185,6 +207,7 @@ void Game::render()
         }
     }
 
+    //std::cout << move_x << " " << move_y << std::endl;
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
 }

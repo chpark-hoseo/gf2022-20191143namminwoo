@@ -36,7 +36,7 @@ private:
 
 	int m_currentFrame, o_currentFrame;
 	int x=1; //이미지 서있는 상태를 위한 변수
-	int move_x = 400, move_y = 9900;
+	int move_x = 400, move_y = 9895;
 	
 	//점프를 위한 변수들
 	bool currentJump = false;

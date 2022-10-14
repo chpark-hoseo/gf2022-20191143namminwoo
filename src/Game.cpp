@@ -62,6 +62,10 @@ void Game::update()
 
     o_currentFrame = ((SDL_GetTicks() / 100) % 5);
     m_currentFrame = ((SDL_GetTicks() / 100) % 4);
+    if (m_currentFrame == 3)
+    {
+        currentHit = false;
+    }
     SDL_Delay(10);
 }
 
@@ -177,7 +181,7 @@ void Game::render()
 
     TheTextureManager::Instance()->draw("Back", -cameraX, -cameraY, 1160, 10000,
         m_pRenderer); 
-    TheTextureManager::Instance()->draw("Floor", 10 - cameraX, 9900 - cameraY, 200, 75, m_pRenderer);
+    TheTextureManager::Instance()->draw("Floor", 10 - cameraX, 9950 - cameraY, 200, 75, m_pRenderer);
 
     if (currentKeyStates[SDL_SCANCODE_LEFT])
     {
@@ -216,19 +220,19 @@ void Game::render()
                 103, 1, NULL, m_pRenderer);
         }
     }
-    else if ((currentKeyStates[SDL_SCANCODE_LCTRL]))
+    else if (currentHit == true)
     {
         if (x == 1)
         {
             TheTextureManager::Instance()->drawFrame("Player_hit", move_x - cameraX-15, move_y - cameraY-10, 122,
                 112, 0, m_currentFrame, m_pRenderer);
-            SDL_Delay(10);
+            SDL_Delay(20);
         }
         else if (x == -1)
         {
             TheTextureManager::Instance()->drawFrame("Player_hit", move_x - cameraX-15, move_y - cameraY-10, 122,
                 112, 1, m_currentFrame, m_pRenderer);
-            SDL_Delay(10);
+            SDL_Delay(20);
         }
     }
     else //∏ÿ√‚ ∂ß

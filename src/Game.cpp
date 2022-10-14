@@ -12,7 +12,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
             if (m_pRenderer != 0) {
                 SDL_SetRenderDrawColor(
-                    m_pRenderer, 255, 255, 0, 255);
+                    m_pRenderer, 255, 255, 255, 255);
             }
             else {
                 return false; // 랜더러 생성 실패
@@ -26,10 +26,22 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false; // SDL 초기화 실패
     }
 
-    o_textureManager.load("Assets/m_Move.png", "Player_", m_pRenderer);
-    m_textureManager.load("Assets/Maple_bg.jfif", "Maple_bg", m_pRenderer);
-    o_textureManager.load("Assets/m_Jump.png", "Player_jump", m_pRenderer);
-
+    if (!TheTextureManager::Instance()->load("Assets/back.png", "Back", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/m_Move2.png", "Player_", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/m_Jump.png", "Player_jump", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/m_Jump.png", "Player_jump", m_pRenderer))
+    {
+        return false;
+    }
     m_bRunning = true;
     return true;
 }
@@ -43,7 +55,6 @@ void Game::update()
     o_currentFrame = ((SDL_GetTicks() / 100) % 5);
 
     SDL_Delay(10);
-   //keyPad();
 }
 
 void Game::keyPad()
@@ -52,6 +63,7 @@ void Game::keyPad()
     {
         if (move_x <= 0)
         {
+            std::cout << move_x << std::endl;
             move_x -= 0;
         }
         else
@@ -61,8 +73,9 @@ void Game::keyPad()
     }
     else if (currentKeyStates[SDL_SCANCODE_RIGHT])
     {
-        if (move_x >= 1855)
+        if (move_x >= 1070)
         {
+            std::cout << move_x << std::endl;
             move_x += 0;
         }
         else
@@ -86,9 +99,9 @@ void Game::Jump()
         {
             move_x = 0;
         }
-        else if (move_x >= 1822)
+        else if (move_x >= 1080)
         {
-            move_x = 1810;
+            move_x = 1080;
         }
         else
         {
@@ -108,7 +121,6 @@ void Game::camera()
     cameraX = (move_x + 98 / 2) - SCREEN_WIDTH / 2;
     cameraY = (move_y + 87 / 2) - SCREEN_HEIGHT / 2;
 
-    //Keep the camera in bounds
     if (cameraX < 0)
     {
         cameraX = 0;
@@ -131,44 +143,52 @@ void Game::render()
     //RenderClear = 화면지움
     SDL_RenderClear(m_pRenderer);
 
-    m_textureManager.draw("Maple_bg", -cameraX, -cameraY, 1920, 1080, m_pRenderer);
+    TheTextureManager::Instance()->draw("Back", -cameraX, -cameraY, 1160, 10000,
+        m_pRenderer);
 
     if (currentKeyStates[SDL_SCANCODE_LEFT])
     {
         x = 1; //왼쪽을 보고 있을때는 case 1
-        o_textureManager.drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98, 87,
-            0, o_currentFrame, m_pRenderer);
+        TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
+            87, 0, o_currentFrame, m_pRenderer);
     }
     else if((currentKeyStates[SDL_SCANCODE_RIGHT]))
     {
         x = -1; //오른쪽을 보고 있을 때는 case 2
-        o_textureManager.drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98, 87,
-            1, o_currentFrame, m_pRenderer);
+        TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
+            87, 1, o_currentFrame, m_pRenderer);
     }
-    else if (currentKeyStates[SDL_SCANCODE_SPACE]) //점프
+    else if (currentJump == true) //점프
     {
-        stop();
+        if (x == 1)
+        {
+            TheTextureManager::Instance()->draw("Player_jump", move_x - cameraX, move_y - cameraY, 90, 103,
+                m_pRenderer);
+        }
+        else if (x == -1)
+        {
+            TheTextureManager::Instance()->drawFrame("Player_jump", move_x - cameraX, move_y - cameraY, 90,
+                103, 1, NULL, m_pRenderer);
+        }
     }
     else //멈출 때
     {
-        stop();
+        if (x == 1) //왼쪽을 보다가 멈출 때
+        {
+            TheTextureManager::Instance()->draw("Player_", move_x - cameraX, move_y - cameraY, 98, 87,
+                m_pRenderer);
+        }
+        else if (x == -1) //오른쪽을 보다가 멈출 때
+        {
+            TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
+                87, 1, NULL, m_pRenderer);
+        }
     }
 
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
 }
 
-void Game::stop() //움직이다가 멈추는 경우를 위한 함수
-{
-    if (x == 1) //왼쪽을 보다가 멈출 때
-    {
-        m_textureManager.draw("Player_jump", move_x - cameraX, move_y - cameraY, 98, 87, m_pRenderer);
-    }
-    else if (x == -1) //오른쪽을 보다가 멈출 때
-    {
-        o_textureManager.drawFrame("Player_jump", move_x - cameraX, move_y - cameraY, 98, 87, 1, NULL, m_pRenderer);
-    }
-}
 
 bool Game::running()
 {   

@@ -30,6 +30,10 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
+    if (!TheTextureManager::Instance()->load("Assets/obstac.png", "Floor", m_pRenderer))
+    {
+        return false;
+    }
     if (!TheTextureManager::Instance()->load("Assets/m_Move2.png", "Player_", m_pRenderer))
     {
         return false;
@@ -39,6 +43,10 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false;
     }
     if (!TheTextureManager::Instance()->load("Assets/m_Jump.png", "Player_jump", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/m_Smash.png", "Player_hit", m_pRenderer))
     {
         return false;
     }
@@ -53,7 +61,7 @@ void Game::update()
     camera();
 
     o_currentFrame = ((SDL_GetTicks() / 100) % 5);
-
+    m_currentFrame = ((SDL_GetTicks() / 100) % 4);
     SDL_Delay(10);
 }
 
@@ -63,7 +71,6 @@ void Game::keyPad()
     {
         if (move_x <= 0)
         {
-            std::cout << move_x << std::endl;
             move_x -= 0;
         }
         else
@@ -75,7 +82,6 @@ void Game::keyPad()
     {
         if (move_x >= 1070)
         {
-            std::cout << move_x << std::endl;
             move_x += 0;
         }
         else
@@ -83,9 +89,35 @@ void Game::keyPad()
             move_x += 5;
         }
     }
+    else if (currentKeyStates[SDL_SCANCODE_DOWN])
+    {
+        if (move_y >= 9900)
+        {
+            move_y += 0;
+        }
+        else
+        {
+            move_y += 5;
+        }
+    }
+    else if (currentKeyStates[SDL_SCANCODE_UP])
+    {
+        if (move_y <= 0)
+        {
+            move_y += 0;
+        }
+        else
+        {
+            move_y -= 5;
+        }
+    }
     else if (currentKeyStates[SDL_SCANCODE_SPACE])
     {
         currentJump = true;
+    }
+    else if ((currentKeyStates[SDL_SCANCODE_LCTRL]))
+    {
+        currentHit = true;
     }
 }
 void Game::Jump()
@@ -144,7 +176,8 @@ void Game::render()
     SDL_RenderClear(m_pRenderer);
 
     TheTextureManager::Instance()->draw("Back", -cameraX, -cameraY, 1160, 10000,
-        m_pRenderer);
+        m_pRenderer); 
+    TheTextureManager::Instance()->draw("Floor", 10 - cameraX, 9900 - cameraY, 200, 75, m_pRenderer);
 
     if (currentKeyStates[SDL_SCANCODE_LEFT])
     {
@@ -153,6 +186,18 @@ void Game::render()
             87, 0, o_currentFrame, m_pRenderer);
     }
     else if((currentKeyStates[SDL_SCANCODE_RIGHT]))
+    {
+        x = -1; //오른쪽을 보고 있을 때는 case 2
+        TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
+            87, 1, o_currentFrame, m_pRenderer);
+    }
+    else if (currentKeyStates[SDL_SCANCODE_DOWN])
+    {
+        x = 1; //왼쪽을 보고 있을때는 case 1
+        TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
+            87, 0, o_currentFrame, m_pRenderer);
+    }
+    else if ((currentKeyStates[SDL_SCANCODE_UP]))
     {
         x = -1; //오른쪽을 보고 있을 때는 case 2
         TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
@@ -169,6 +214,21 @@ void Game::render()
         {
             TheTextureManager::Instance()->drawFrame("Player_jump", move_x - cameraX, move_y - cameraY, 90,
                 103, 1, NULL, m_pRenderer);
+        }
+    }
+    else if ((currentKeyStates[SDL_SCANCODE_LCTRL]))
+    {
+        if (x == 1)
+        {
+            TheTextureManager::Instance()->drawFrame("Player_hit", move_x - cameraX-15, move_y - cameraY-10, 122,
+                112, 0, m_currentFrame, m_pRenderer);
+            SDL_Delay(10);
+        }
+        else if (x == -1)
+        {
+            TheTextureManager::Instance()->drawFrame("Player_hit", move_x - cameraX-15, move_y - cameraY-10, 122,
+                112, 1, m_currentFrame, m_pRenderer);
+            SDL_Delay(10);
         }
     }
     else //멈출 때

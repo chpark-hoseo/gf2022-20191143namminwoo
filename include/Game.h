@@ -2,8 +2,8 @@
 #include "main.h"
 #include "TextureManager.h"
 
-#define SCREEN_WIDTH 680 //보이는 화면 넓이
 #define SCREEN_HEIGHT 500
+#define SCREEN_WIDTH 680 //보이는 화면 넓이
 #define LEVEL_WIDTH 1160 //전체 화면 넓이
 #define LEVEL_HEIGHT 10000
 
@@ -42,6 +42,8 @@ private:
 	bool currentJump = false;
 	int m_JumpSpeed = -50;
 
+	//공격을 위한 변수들
+	bool currentHit = false;
 	//카메라 이동을 위한 변수들
 	int cameraX = 0, cameraY = 0;
 

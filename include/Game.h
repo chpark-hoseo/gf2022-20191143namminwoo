@@ -50,4 +50,7 @@ private:
 	//카메라 이동을 위한 변수들
 	int cameraX = 0, cameraY = 0;
 
+	//몬스터1 이동을 위한 변수들
+	int mob1_x = 10, mob1_y = 9500;
+	int mob1_move_x = 1;
 };

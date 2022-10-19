@@ -46,11 +46,11 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
-    if (!TheTextureManager::Instance()->load("Assets/Orange_mush.png", "Monster", m_pRenderer))
+    if (!TheTextureManager::Instance()->load("Assets/m_Smash.png", "Player_hit", m_pRenderer))
     {
         return false;
     }
-    if (!TheTextureManager::Instance()->load("Assets/m_Smash.png", "Player_hit", m_pRenderer))
+    if (!TheTextureManager::Instance()->load("Assets/Orange_mush.png", "Monster", m_pRenderer))
     {
         return false;
     }

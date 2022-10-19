@@ -46,6 +46,10 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
+    if (!TheTextureManager::Instance()->load("Assets/Orange_mush.png", "Monster", m_pRenderer))
+    {
+        return false;
+    }
     if (!TheTextureManager::Instance()->load("Assets/m_Smash.png", "Player_hit", m_pRenderer))
     {
         return false;
@@ -60,12 +64,25 @@ void Game::update()
     Jump();
     camera();
 
-    o_currentFrame = ((SDL_GetTicks() / 100) % 5);
+    o_currentFrame = ((SDL_GetTicks() / 100) % 5); //이미지 좌우이동 프레임(5)
+    //캐릭터 공격 프레임
     if (currentHit)
     {
         m_currentFrame = (hitTime/4)%4;
         hitTime++;
     }
+
+    //몬스터 1 좌우 이동
+    if (mob1_x == 567)
+    {
+        mob1_move_x = mob1_move_x * +1;
+    }
+    else if (mob1_x == 0)
+    {
+        mob1_move_x = mob1_move_x * -1;
+    }
+    mob1_x += mob1_move_x;
+
     SDL_Delay(10);
 }
 
@@ -79,7 +96,7 @@ void Game::keyPad()
         }
         else
         {
-            move_x -= 5;
+            move_x -= 3;
         }
     }
     else if (currentKeyStates[SDL_SCANCODE_RIGHT])
@@ -90,7 +107,7 @@ void Game::keyPad()
         }
         else
         {
-            move_x += 5;
+            move_x += 3;
         }
     }
     else if (currentKeyStates[SDL_SCANCODE_DOWN])
@@ -101,7 +118,7 @@ void Game::keyPad()
         }
         else
         {
-            move_y += 5;
+            move_y += 3;
         }
     }
     else if (currentKeyStates[SDL_SCANCODE_UP])
@@ -112,7 +129,7 @@ void Game::keyPad()
         }
         else
         {
-            move_y -= 5;
+            move_y -= 3;
         }
     }
     else if (currentKeyStates[SDL_SCANCODE_SPACE])
@@ -178,11 +195,19 @@ void Game::render()
 {
     //RenderClear = 화면지움
     SDL_RenderClear(m_pRenderer);
-
+    //배경 이미지
     TheTextureManager::Instance()->draw("Back", -cameraX, -cameraY, 1160, 10000,
         m_pRenderer); 
-    TheTextureManager::Instance()->draw("Floor", 10 - cameraX, 9950 - cameraY, 200, 75, m_pRenderer);
-
+    //바닥 이미지
+    {
+        TheTextureManager::Instance()->draw("Floor", 10 - cameraX, 9950 - cameraY, 200, 75, m_pRenderer);
+        TheTextureManager::Instance()->draw("Floor", 210 - cameraX, 9950 - cameraY, 200, 75, m_pRenderer);
+        TheTextureManager::Instance()->draw("Floor", 410 - cameraX, 9950 - cameraY, 200, 75, m_pRenderer);
+        TheTextureManager::Instance()->draw("Floor", 610 - cameraX, 9950 - cameraY, 200, 75, m_pRenderer);
+        TheTextureManager::Instance()->draw("Floor", 810 - cameraX, 9950 - cameraY, 200, 75, m_pRenderer);
+        TheTextureManager::Instance()->draw("Floor", 1010 - cameraX, 9950 - cameraY, 200, 75, m_pRenderer);
+    } 
+    //키입력에 따른 플레이어 이미지
     if (currentKeyStates[SDL_SCANCODE_LEFT])
     {
         x = 1; //왼쪽을 보고 있을때는 case 1
@@ -249,13 +274,17 @@ void Game::render()
                 87, 1, NULL, m_pRenderer);
         }
     }
-
+    //공격모션 이미지
     if (m_currentFrame == 3)
     {
         currentHit = false;
         m_currentFrame = 0;
         hitTime = 0;
     }
+    //몬스터 이미지
+    TheTextureManager::Instance()->draw("Monster", mob1_x - cameraX, mob1_y - cameraY, 63, 69,
+        m_pRenderer);
+
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  
 }

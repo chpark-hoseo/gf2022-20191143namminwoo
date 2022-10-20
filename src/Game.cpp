@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "TextureManager.h"
 
-bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
+bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags) 
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) 
     {
@@ -54,17 +54,18 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
+
     m_bRunning = true;
     return true;
 }
-
 void Game::update()
 {
     keyPad();
     Jump();
     camera();
-
-    o_currentFrame = ((SDL_GetTicks() / 100) % 5); //이미지 좌우이동 프레임(5)
+    collider();
+    //이미지 좌우이동 프레임(5)
+    o_currentFrame = ((SDL_GetTicks() / 100) % 5); 
     //캐릭터 공격 프레임
     if (currentHit)
     {
@@ -72,20 +73,41 @@ void Game::update()
         hitTime++;
     }
 
-    //몬스터 1 좌우 이동
-    if (mob1_x == 567)
+    //몬스터1 좌우 이동
+    if (mob1_x >= 567)
     {
-        mob1_move_x = mob1_move_x * +1;
+        mob1_move_x = mob1_move_x * -1;
     }
-    else if (mob1_x == 0)
+    else if (mob1_x <= 0)
     {
         mob1_move_x = mob1_move_x * -1;
     }
     mob1_x += mob1_move_x;
 
+    //몬스터1 공격받음
+    if (mob1_collid == true && currentHit == true)
+    {
+        if (m_currentFrame == 3)
+        {
+            mob1_current = true;
+        }
+    }
+
     SDL_Delay(10);
 }
+void Game::collider()
+{
+    //플레이어와 몬스터1 충돌
+    if ((mob1_x + 63 >= move_x) && (mob1_x <= move_x + 98)) //몬스터-플레이어 && 플레이어-몬스터
+    {
+        mob1_collid = true;
+    }
+    else //충돌하지 않을 시
+    {
+        mob1_collid = false;
+    }
 
+}
 void Game::keyPad()
 {
     if (currentKeyStates[SDL_SCANCODE_LEFT])
@@ -281,9 +303,24 @@ void Game::render()
         m_currentFrame = 0;
         hitTime = 0;
     }
-    //몬스터 이미지
-    TheTextureManager::Instance()->draw("Monster", mob1_x - cameraX, mob1_y - cameraY, 63, 69,
-        m_pRenderer);
+    //몬스터1 이미지
+    if (mob1_current == false)
+    {
+        if (mob1_move_x == -1)
+        {
+            TheTextureManager::Instance()->drawFrame("Monster", mob1_x - cameraX, mob1_y - cameraY, 63,
+                69, 0, o_currentFrame, m_pRenderer);
+        }
+        else if (mob1_move_x == 1)
+        {
+            TheTextureManager::Instance()->drawFrame("Monster", mob1_x - cameraX, mob1_y - cameraY, 63,
+                69, 1, o_currentFrame, m_pRenderer);
+        }
+    }
+    else if (mob1_current == true) //몬스터 충돌&공격 당할 시 이미지 삭제
+    {
+    }
+
 
     //RenderPresent = 그린거 호출
     SDL_RenderPresent(m_pRenderer);  

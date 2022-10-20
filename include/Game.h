@@ -20,6 +20,7 @@ public:
 	void keyPad();
 	void Jump();
 	void camera();
+	void collider();
 
 private:
 	SDL_Window* m_pWindow;
@@ -51,6 +52,8 @@ private:
 	int cameraX = 0, cameraY = 0;
 
 	//몬스터1 이동을 위한 변수들
-	int mob1_x = 10, mob1_y = 9500;
+	int mob1_x = 10, mob1_y = 9910;
 	int mob1_move_x = 1;
+	bool mob1_current = false;
+	bool mob1_collid = false;
 };

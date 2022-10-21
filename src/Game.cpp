@@ -34,6 +34,10 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
+    if (!TheTextureManager::Instance()->load("Assets/ladder.png", "Ladder", m_pRenderer))
+    {
+        return false;
+    }
     if (!TheTextureManager::Instance()->load("Assets/m_Move2.png", "Player_", m_pRenderer))
     {
         return false;
@@ -64,6 +68,7 @@ void Game::update()
     Jump();
     camera();
     collider();
+
     //이미지 좌우이동 프레임(5)
     o_currentFrame = ((SDL_GetTicks() / 100) % 5); 
     //캐릭터 공격 프레임
@@ -92,7 +97,6 @@ void Game::update()
             mob1_current = true;
         }
     }
-
     SDL_Delay(10);
 }
 void Game::collider()
@@ -134,7 +138,7 @@ void Game::keyPad()
     }
     else if (currentKeyStates[SDL_SCANCODE_DOWN])
     {
-        if (move_y >= 9900)
+        if (move_y >= 9893)
         {
             move_y += 0;
         }
@@ -229,6 +233,15 @@ void Game::render()
         TheTextureManager::Instance()->draw("Floor", 810 - cameraX, 9950 - cameraY, 200, 75, m_pRenderer);
         TheTextureManager::Instance()->draw("Floor", 1010 - cameraX, 9950 - cameraY, 200, 75, m_pRenderer);
     } 
+    //발판 이미지
+    {
+        TheTextureManager::Instance()->draw("Floor", 360 - cameraX, 9650 - cameraY, 200, 75, m_pRenderer);
+        TheTextureManager::Instance()->draw("Floor", 160 - cameraX, 9650 - cameraY, 200, 75, m_pRenderer);
+        TheTextureManager::Instance()->draw("Ladder", 420 - cameraX, 9650 - cameraY, 140, 200, m_pRenderer);
+
+        TheTextureManager::Instance()->draw("Floor", 110 - cameraX, 9400 - cameraY, 200, 75, m_pRenderer);
+        TheTextureManager::Instance()->draw("Ladder", 160 - cameraX, 9400 - cameraY, 140, 200, m_pRenderer);
+    }
     //키입력에 따른 플레이어 이미지
     if (currentKeyStates[SDL_SCANCODE_LEFT])
     {

@@ -33,7 +33,10 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     }
 
     m_go.load(100, 100, 128, 82, "animate");
-    m_player.load(300, 300, 128, 82, "animate");
+    m_player.load(200, 200, 128, 82, "animate");
+
+    m_monster1.load(300, 300, 128, 82, "animate");
+    m_monster2.load(300, 400, 128, 82, "animate");
 
     m_bRunning = true;
     return true;
@@ -42,20 +45,26 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 void Game::update()
 {
     m_currentFrame = ((SDL_GetTicks() / 100) % 6);
+
     m_go.update();
     m_player.update();
+
+    m_monster1.update1();
+    m_monster2.update2();
+
     SDL_Delay(10);
 }
 void Game::render()
 {
-
     SDL_RenderClear(m_pRenderer);
 
     m_go.draw(m_pRenderer);
     m_player.draw(m_pRenderer);
 
-    SDL_RenderPresent(m_pRenderer);
+    m_monster1.draw(m_pRenderer);
+    m_monster2.draw(m_pRenderer);
 
+    SDL_RenderPresent(m_pRenderer);
 }
 
 bool Game::running()
@@ -65,7 +74,8 @@ bool Game::running()
 
 void Game::handleEvents()
 {
-    while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내 동작 가능하게 만들기 위해서 라고 추측함
+    while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내 
+                                  //동작 가능하게 만들기 위해서 라고 추측함
     {
         switch (event.type)
         {

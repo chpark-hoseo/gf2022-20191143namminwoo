@@ -2,6 +2,7 @@
 #include "main.h"
 #include "TextureManager.h"
 #include "Player.h"
+#include "Monster.h"
 
 #define SCREEN_WIDTH 1000 //보이는 화면 넓이
 #define SCREEN_HEIGHT 500
@@ -27,11 +28,9 @@ private:
 
 	SDL_Event event;
 
-	//TextureManager m_textureManager, o_textureManager;
-
 	int m_currentFrame;
 
 	GameObject m_go;
 	Player m_player;
-
+	Monster m_monster1, m_monster2;
 };

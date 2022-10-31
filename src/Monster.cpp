@@ -9,11 +9,27 @@ void Monster::draw(SDL_Renderer* pRenderer)
 	GameObject::draw(pRenderer);
 }
 
-void Monster::update()
+void Monster::update1()
 {
-	mob1_x -= mob1_move;
-	if (mob1_x <= 500)
+	m_x += mob1_move;
+	if (m_x == 500)
 	{
-
+		mob1_move = -10;
+	}
+	else if (m_x == 0)
+	{
+		mob1_move = 10;
+	}
+}
+void Monster::update2()
+{
+	m_x += mob2_move;
+	if (m_x == 400)
+	{
+		mob2_move = -5;
+	}
+	else if (m_x == 0)
+	{
+		mob2_move = 5;
 	}
 }

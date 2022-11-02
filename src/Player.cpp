@@ -12,5 +12,7 @@ void Player::draw(SDL_Renderer* pRenderer)
 
 void Player::update()
 {
+    m_currentFrame = ((SDL_GetTicks() / 100) % 6);
+
     m_x -= 1;
 }

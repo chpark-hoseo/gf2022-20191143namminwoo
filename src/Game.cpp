@@ -44,8 +44,6 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-    m_currentFrame = ((SDL_GetTicks() / 100) % 6);
-
     m_go.update();
     m_player.update();
 

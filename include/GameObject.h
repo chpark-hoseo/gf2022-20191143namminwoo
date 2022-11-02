@@ -16,6 +16,6 @@ protected:
 	int m_width;
 	int m_height;
 
-	int m_currentFrame;
+	int m_currentFrame = ((SDL_GetTicks() / 100) % 6);
 	int m_currentRow;
 };

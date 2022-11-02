@@ -11,6 +11,8 @@ void Monster::draw(SDL_Renderer* pRenderer)
 
 void Monster::update1()
 {
+	m_currentFrame = ((SDL_GetTicks() / 100) % 6);
+
 	m_x += mob1_move;
 	if (m_x == 500)
 	{
@@ -23,6 +25,8 @@ void Monster::update1()
 }
 void Monster::update2()
 {
+	m_currentFrame = ((SDL_GetTicks() / 100) % 6);
+
 	m_x += mob2_move;
 	if (m_x == 400)
 	{

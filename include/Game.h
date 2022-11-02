@@ -28,8 +28,6 @@ private:
 
 	SDL_Event event;
 
-	int m_currentFrame;
-
 	GameObject m_go;
 	Player m_player;
 	Monster m_monster1, m_monster2;

@@ -28,7 +28,12 @@ private:
 
 	SDL_Event event;
 
-	GameObject m_go;
-	Player m_player;
-	Monster m_monster1, m_monster2;
+	std::vector<GameObject*> m_gameObjects;
+	//std::vector<Monster*> m_monsters;
+
+	GameObject* m_go = new GameObject();
+	GameObject* m_player = new Player();
+	Monster* m_monster1 = new Monster();
+	Monster* m_monster2 = new Monster();
+
 };

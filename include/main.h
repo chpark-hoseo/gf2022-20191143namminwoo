@@ -7,3 +7,4 @@
 #include <SDL2/SDL_mixer.h>
 #include <conio.h>
 #include <map>
+#include <vector>

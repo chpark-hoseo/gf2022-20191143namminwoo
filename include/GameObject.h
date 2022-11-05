@@ -18,4 +18,5 @@ protected:
 
 	int m_currentFrame = ((SDL_GetTicks() / 100) % 6);
 	int m_currentRow;
+
 };

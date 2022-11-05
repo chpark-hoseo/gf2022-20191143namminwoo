@@ -29,11 +29,13 @@ private:
 	SDL_Event event;
 
 	std::vector<GameObject*> m_gameObjects;
-	//std::vector<Monster*> m_monsters;
+	std::vector<Monster*> m_monsters;
 
 	GameObject* m_go = new GameObject();
 	GameObject* m_player = new Player();
 	Monster* m_monster1 = new Monster();
 	Monster* m_monster2 = new Monster();
 
+	//for-each 문을 위한 vector형 배열 선언
+	std::vector<int>go = {0,1};
 };

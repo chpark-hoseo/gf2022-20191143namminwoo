@@ -53,13 +53,16 @@ void Game::update()
     //}
 
     //for-each ¹® Àû¿ë
-    for(int num : go)
+    //for(int num : go)
+    //{
+    //    m_gameObjects[num]->update();
+    //}
+    for (int i = 0; i < m_gameObjects.size(); i++)
     {
-        m_gameObjects[num]->update();
+       m_gameObjects[i]->update();
     }
-
-    m_monster1->update1();
-    m_monster2->update2();
+    //m_monster1->update1();
+    //m_monster2->update2();
 
     SDL_Delay(10);
 }
@@ -67,14 +70,14 @@ void Game::render()
 {
     SDL_RenderClear(m_pRenderer);
 
-    //for (int i = 0; i < m_gameObjects.size(); i++)
-    //{
-    //    m_gameObjects[i]->draw(m_pRenderer);
-    //}
-    for (int num : go)
+    for (int i = 0; i < m_gameObjects.size(); i++)
     {
-        m_gameObjects[num]->draw(m_pRenderer);
+        m_gameObjects[i]->draw(m_pRenderer);
     }
+    //for (int num : go)
+    //{
+    //    m_gameObjects[num]->draw(m_pRenderer);
+    //}
 
     //for (int i = 0; i < m_monsters.size(); i++)
     //{

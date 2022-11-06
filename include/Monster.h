@@ -10,7 +10,8 @@ protected:
 public:
     void load(int x, int y, int width, int height, std::string textureID);
     void draw(SDL_Renderer* pRenderer);
-    void update1();
-    void update2();
+    //void update1();
+    //void update2();
+    void update(int speed,int length);
     void clean() {};
 };

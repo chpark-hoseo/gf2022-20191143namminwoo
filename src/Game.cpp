@@ -1,6 +1,6 @@
 #include "Game.h"
-#include "TextureManager.h"
-#include "GameObject.h"
+//#include "TextureManager.h"
+//#include "GameObject.h"
 
 Game* Game::s_pInstance = 0;
 

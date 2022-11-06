@@ -32,7 +32,7 @@ private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 
-	Game() {} //생성자
+	//Game() {} //생성자
 	static Game* s_pInstance; // 정적 멤버변수 
 
 	bool m_bRunning;

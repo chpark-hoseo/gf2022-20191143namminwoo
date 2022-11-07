@@ -195,28 +195,7 @@ void Game::Jump()
         }
     }
 }
-void Game::camera()
-{
-    cameraX = (move_x + 98 / 2) - SCREEN_WIDTH / 2;
-    cameraY = (move_y + 87 / 2) - SCREEN_HEIGHT / 2;
 
-    if (cameraX < 0)
-    {
-        cameraX = 0;
-    }
-    if (cameraY < 0)
-    {
-        cameraY = 0;
-    }
-    if (cameraX > LEVEL_WIDTH - SCREEN_WIDTH)
-    {
-        cameraX = LEVEL_WIDTH - SCREEN_WIDTH;
-    }
-    if (cameraY > LEVEL_HEIGHT - SCREEN_HEIGHT)
-    {
-        cameraY = LEVEL_HEIGHT - SCREEN_HEIGHT;
-    }
-}
 void Game::render()
 {
     //RenderClear = 화면지움

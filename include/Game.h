@@ -10,7 +10,6 @@
 class Game
 {
 public:
-
 	bool init(const char* title, int xpos, int ypos, int height, int width, int flags);
 	void render();
 	void update();
@@ -19,8 +18,8 @@ public:
 	void clean();
 	void keyPad();
 	void Jump();
-	void camera();
 	void collider();
+	static int move_x = 400, move_y = 9893;
 
 private:
 	SDL_Window* m_pWindow;
@@ -37,7 +36,7 @@ private:
 
 	int m_currentFrame = 0, o_currentFrame;
 	int x=1; //이미지 서있는 상태를 위한 변수
-	int move_x = 400, move_y = 9893;
+
 	
 	//점프를 위한 변수들
 	bool currentJump = false;
@@ -47,9 +46,6 @@ private:
 	bool currentHit = false;
 	bool practice = false;
 	int hitTime = 0;
-
-	//카메라 이동을 위한 변수들
-	int cameraX = 0, cameraY = 0;
 
 	//몬스터1 이동을 위한 변수들
 	int mob1_x = 10, mob1_y = 9910;

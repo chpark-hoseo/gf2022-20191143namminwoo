@@ -19,7 +19,6 @@ public:
 	void handleEvents();
 	void clean();
 
-
 private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
@@ -32,8 +31,8 @@ private:
 	
 	GameObject* m_go = new GameObject();
 	GameObject* m_player = new Player();
-	GameObject* m_monster1 = new Monster();
-	GameObject* m_monster2 = new Monster();
+	GameObject* m_monster1 = new Monster(10,500);
+	GameObject* m_monster2 = new Monster(5,400);
 
 	//Monster* m_monster1 = new Monster();
 	//Monster* m_monster2 = new Monster();

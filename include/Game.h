@@ -16,10 +16,10 @@ public:
 	bool running();
 	void handleEvents();
 	void clean();
-	void keyPad();
-	void Jump();
+	//void keyPad();
+	//void Jump();
 	void collider();
-	static int move_x = 400, move_y = 9893;
+
 
 private:
 	SDL_Window* m_pWindow;
@@ -32,24 +32,6 @@ private:
 
 	SDL_Event event;
 
-	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+	int m_currentFrame = 0;
 
-	int m_currentFrame = 0, o_currentFrame;
-	int x=1; //이미지 서있는 상태를 위한 변수
-
-	
-	//점프를 위한 변수들
-	bool currentJump = false;
-	int m_JumpSpeed = -50;
-
-	//공격을 위한 변수들
-	bool currentHit = false;
-	bool practice = false;
-	int hitTime = 0;
-
-	//몬스터1 이동을 위한 변수들
-	int mob1_x = 10, mob1_y = 9910;
-	int mob1_move_x = 1;
-	bool mob1_current = false;
-	bool mob1_collid = false;
 };

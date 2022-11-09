@@ -64,39 +64,17 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 }
 void Game::update()
 {
-    keyPad();
-    Jump();
-    camera();
+    //keyPad();
+    //Jump();
+    //camera();
+    ////캐릭터 공격 프레임
+    //if (currentHit)
+    //{
+    //    m_currentFrame = (hitTime/4)%4;
+    //    hitTime++;
+    //}
     collider();
 
-    //이미지 좌우이동 프레임(5)
-    o_currentFrame = ((SDL_GetTicks() / 100) % 5); 
-    //캐릭터 공격 프레임
-    if (currentHit)
-    {
-        m_currentFrame = (hitTime/4)%4;
-        hitTime++;
-    }
-
-    //몬스터1 좌우 이동
-    if (mob1_x >= 567)
-    {
-        mob1_move_x = mob1_move_x * -1;
-    }
-    else if (mob1_x <= 0)
-    {
-        mob1_move_x = mob1_move_x * -1;
-    }
-    mob1_x += mob1_move_x;
-
-    //몬스터1 공격받음
-    if (mob1_collid == true && currentHit == true)
-    {
-        if (m_currentFrame == 3)
-        {
-            mob1_current = true;
-        }
-    }
     SDL_Delay(10);
 }
 void Game::collider()
@@ -110,91 +88,90 @@ void Game::collider()
     {
         mob1_collid = false;
     }
-
 }
-void Game::keyPad()
-{
-    if (currentKeyStates[SDL_SCANCODE_LEFT])
-    {
-        if (move_x <= 0)
-        {
-            move_x -= 0;
-        }
-        else
-        {
-            move_x -= 3;
-        }
-    }
-    else if (currentKeyStates[SDL_SCANCODE_RIGHT])
-    {
-        if (move_x >= 1070)
-        {
-            move_x += 0;
-        }
-        else
-        {
-            move_x += 3;
-        }
-    }
-    else if (currentKeyStates[SDL_SCANCODE_DOWN])
-    {
-        if (move_y >= 9893)
-        {
-            move_y += 0;
-        }
-        else
-        {
-            move_y += 3;
-        }
-    }
-    else if (currentKeyStates[SDL_SCANCODE_UP])
-    {
-        if (move_y <= 0)
-        {
-            move_y += 0;
-        }
-        else
-        {
-            move_y -= 3;
-        }
-    }
-    else if (currentKeyStates[SDL_SCANCODE_SPACE])
-    {
-        currentJump = true;
-    }
-    else if ((currentKeyStates[SDL_SCANCODE_LCTRL]))
-    {
-        currentHit = true;
-    }
-}
-void Game::Jump()
-{
-    if (currentJump == false) return; //키 한번 입력 후 중복 입력 방지
-
-    else if (currentJump == true)
-    { 
-        move_y += m_JumpSpeed;
-        if (move_x <= 0)
-        {
-            move_x = 0;
-        }
-        else if (move_x >= 1080)
-        {
-            move_x = 1080;
-        }
-        else
-        {
-            move_x += x*-10;   //없으면 제자리 점프, 있으면 전방으로 점프
-        }
-        SDL_Delay(20);
-        m_JumpSpeed += 10;
-        if (m_JumpSpeed == 60)
-        {
-            currentJump = false;
-            m_JumpSpeed = -50;
-        }
-    }
-}
+//void Game::keyPad()
+//{
+//    if (currentKeyStates[SDL_SCANCODE_LEFT])
+//    {
+//        if (move_x <= 0)
+//        {
+//            move_x -= 0;
+//        }
+//        else
+//        {
+//            move_x -= 3;
+//        }
+//    }
+//    else if (currentKeyStates[SDL_SCANCODE_RIGHT])
+//    {
+//        if (move_x >= 1070)
+//        {
+//            move_x += 0;
+//        }
+//        else
+//        {
+//            move_x += 3;
+//        }
+//    }
+//    else if (currentKeyStates[SDL_SCANCODE_DOWN])
+//    {
+//        if (move_y >= 9893)
+//        {
+//            move_y += 0;
+//        }
+//        else
+//        {
+//            move_y += 3;
+//        }
+//    }
+//    else if (currentKeyStates[SDL_SCANCODE_UP])
+//    {
+//        if (move_y <= 0)
+//        {
+//            move_y += 0;
+//        }
+//        else
+//        {
+//            move_y -= 3;
+//        }
+//    }
+//    else if (currentKeyStates[SDL_SCANCODE_SPACE])
+//    {
+//        currentJump = true;
+//    }
+//    else if ((currentKeyStates[SDL_SCANCODE_LCTRL]))
+//    {
+//        currentHit = true;
+//    }
+//}
+//void Game::Jump()
+//{
+//    if (currentJump == false) return; //키 한번 입력 후 중복 입력 방지
+//
+//    else if (currentJump == true)
+//    { 
+//        move_y += m_JumpSpeed;
+//        if (move_x <= 0)
+//        {
+//            move_x = 0;
+//        }
+//        else if (move_x >= 1080)
+//        {
+//            move_x = 1080;
+//        }
+//        else
+//        {
+//            move_x += x*-10;   //없으면 제자리 점프, 있으면 전방으로 점프
+//        }
+//        SDL_Delay(20);
+//        m_JumpSpeed += 10;
+//        if (m_JumpSpeed == 60)
+//        {
+//            currentJump = false;
+//            m_JumpSpeed = -50;
+//        }
+//    }
+//}
 
 void Game::render()
 {

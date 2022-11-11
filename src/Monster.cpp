@@ -1,15 +1,10 @@
 #include "Monster.h"
-void Monster::load(int x, int y, int width, int height, std::string textureID)
+Monster::Monster(const LoaderParams* pParams) : SDLGameObject(pParams) {}
+void Monster::draw()
 {
-	GameObject::load(x, y, width, height, textureID);
+	SDLGameObject::draw();
 }
-
-void Monster::draw(SDL_Renderer* pRenderer)
-{
-	GameObject::draw(pRenderer);
-}
-
-void Monster::update1()
+void Monster::update()
 {
 	m_currentFrame = ((SDL_GetTicks() / 100) % 6);
 
@@ -23,17 +18,5 @@ void Monster::update1()
 		mob1_move = 10;
 	}
 }
-void Monster::update2()
-{
-	m_currentFrame = ((SDL_GetTicks() / 100) % 6);
+void Monster::clean() {}
 
-	m_x += mob2_move;
-	if (m_x == 400)
-	{
-		mob2_move = -5;
-	}
-	else if (m_x == 0)
-	{
-		mob2_move = 5;
-	}
-}

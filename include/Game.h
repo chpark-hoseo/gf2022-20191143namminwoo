@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include "Player.h"
 #include "Monster.h"
+#include "Enemy.h"
 
 #define SCREEN_WIDTH 1000 //보이는 화면 넓이
 #define SCREEN_HEIGHT 500
@@ -40,12 +41,12 @@ private:
 	SDL_Event event;
 
 	std::vector<GameObject*> m_gameObjects;
-	std::vector<Monster*> m_monsters;
 
-	GameObject* m_go = new GameObject();
-	GameObject* m_player = new Player();
-	Monster* m_monster1 = new Monster();
-	Monster* m_monster2 = new Monster();
+	//std::vector<Monster*> m_monsters;
+	//GameObject* m_go = new GameObject();
+	//GameObject* m_player = new Player();
+	//GameObject* m_monster1 = new Monster();
+	//Monster* m_monster2 = new Monster();
 
 	//for-each 문을 위한 vector형 배열 선언
 	std::vector<int>go = {0,1};

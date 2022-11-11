@@ -34,14 +34,10 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false;
     }
 
-    m_go->load(100, 100, 128, 82, "animate");
-    m_player->load(200, 200, 128, 82, "animate");
+    m_gameObjects.push_back(new Player(new LoaderParams(10, 100, 128, 82, "animate")));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(100, 150, 128, 82, "animate")));
+    m_gameObjects.push_back(new Monster(new LoaderParams(100, 200, 128, 82, "animate")));
 
-    m_gameObjects.push_back(m_go);
-    m_gameObjects.push_back(m_player);
-
-    m_monster1->load(300, 300, 128, 82, "animate");
-    m_monster2->load(300, 400, 128, 82, "animate");
 
     m_bRunning = true;
     return true;
@@ -49,19 +45,10 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-    //for (int i = 0; i < m_gameObjects.size(); i++)
-    //{
-    //    m_gameObjects[i]->update();
-    //}
-
-    //for-each ¹® Àû¿ë
-    for(int num : go)
+    for (int i = 0; i != m_gameObjects.size(); i++)
     {
-        m_gameObjects[num]->update();
+        m_gameObjects[i]->update();
     }
-
-    m_monster1->update1();
-    m_monster2->update2();
 
     SDL_Delay(10);
 }
@@ -69,21 +56,10 @@ void Game::render()
 {
     SDL_RenderClear(m_pRenderer);
 
-    //for (int i = 0; i < m_gameObjects.size(); i++)
-    //{
-    //    m_gameObjects[i]->draw(m_pRenderer);
-    //}
-    for (int num : go)
+    for (int i = 0; i != m_gameObjects.size(); i++) 
     {
-        m_gameObjects[num]->draw(m_pRenderer);
+        m_gameObjects[i]->draw();
     }
-
-    //for (int i = 0; i < m_monsters.size(); i++)
-    //{
-    //    m_monsters[i]->draw(m_pRenderer);
-    //}
-    m_monster1->draw(m_pRenderer);
-    m_monster2->draw(m_pRenderer);
 
     SDL_RenderPresent(m_pRenderer);
 }

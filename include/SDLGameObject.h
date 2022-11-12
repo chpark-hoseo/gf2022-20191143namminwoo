@@ -1,13 +1,16 @@
 #pragma once
 #include "main.h"
 #include "GameObject.h"
+#include "Vector2D.h"
+
 class SDLGameObject : public GameObject {
 public:
 	SDLGameObject(const LoaderParams* pParams);
 	virtual void draw();
-	virtual void update() {}
+	virtual void update();
 	virtual void clean() {}
 	virtual ~SDLGameObject() {}
+	Vector2D m_position;
 
 protected:
 	int m_x;

@@ -1,11 +1,11 @@
 #pragma once
 #include "main.h"
 #include "TextureManager.h"
-
-#define SCREEN_HEIGHT 500
-#define SCREEN_WIDTH 680 //º¸ÀÌ´Â È­¸é ³ÐÀÌ
-#define LEVEL_WIDTH 1160 //ÀüÃ¼ È­¸é ³ÐÀÌ
-#define LEVEL_HEIGHT 10000
+#include "Player.h"
+//#define SCREEN_HEIGHT 500
+//#define SCREEN_WIDTH 680 //º¸ÀÌ´Â È­¸é ³ÐÀÌ
+//#define LEVEL_WIDTH 1160 //ÀüÃ¼ È­¸é ³ÐÀÌ
+//#define LEVEL_HEIGHT 10000
 
 class Game
 {
@@ -18,8 +18,7 @@ public:
 	void clean();
 	//void keyPad();
 	//void Jump();
-	void collider();
-
+	//void collider();
 
 private:
 	SDL_Window* m_pWindow;
@@ -31,7 +30,7 @@ private:
 	SDL_Texture* m_pTexture;
 
 	SDL_Event event;
-
+	Player player;
 	int m_currentFrame = 0;
 
 };

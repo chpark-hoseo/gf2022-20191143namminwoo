@@ -106,6 +106,14 @@ void Player::update()
     }
 
     {
-
+        //플레이어와 몬스터1 충돌
+        if ((mob1_x + 63 >= move_x) && (mob1_x <= move_x + 98)) //몬스터-플레이어 && 플레이어-몬스터
+        {
+            mob1_collid = true;
+        }
+        else //충돌하지 않을 시
+        {
+            mob1_collid = false;
+        }
     }
 }

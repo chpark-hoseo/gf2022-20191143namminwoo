@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "TextureManager.h"
-
+#include "Player.h"
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags) 
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) 
@@ -73,22 +73,21 @@ void Game::update()
     //    m_currentFrame = (hitTime/4)%4;
     //    hitTime++;
     //}
-    collider();
+    //collider();
 
     SDL_Delay(10);
 }
-void Game::collider()
-{
-    //플레이어와 몬스터1 충돌
-    if ((mob1_x + 63 >= move_x) && (mob1_x <= move_x + 98)) //몬스터-플레이어 && 플레이어-몬스터
-    {
-        mob1_collid = true;
-    }
-    else //충돌하지 않을 시
-    {
-        mob1_collid = false;
-    }
-}
+//void Game::collider()
+//{
+//    if ((mob1_x + 63 >= move_x) && (mob1_x <= move_x + 98)) //몬스터-플레이어 && 플레이어-몬스터
+//    {
+//        mob1_collid = true;
+//    }
+//        else //충돌하지 않을 시
+//        {
+//        mob1_collid = false;
+//        }
+//}
 //void Game::keyPad()
 //{
 //    if (currentKeyStates[SDL_SCANCODE_LEFT])
@@ -203,25 +202,27 @@ void Game::render()
     {
         x = 1; //왼쪽을 보고 있을때는 case 1
         TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
-            87, 0, o_currentFrame, m_pRenderer);
+            87, 0, m_currentFrame, m_pRenderer);
     }
+
+    
     else if((currentKeyStates[SDL_SCANCODE_RIGHT]))
     {
         x = -1; //오른쪽을 보고 있을 때는 case 2
         TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
-            87, 1, o_currentFrame, m_pRenderer);
+            87, 1, m_currentFrame, m_pRenderer);
     }
     else if (currentKeyStates[SDL_SCANCODE_DOWN])
     {
         x = 1; //왼쪽을 보고 있을때는 case 1
         TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
-            87, 0, o_currentFrame, m_pRenderer);
+            87, 0, m_currentFrame, m_pRenderer);
     }
     else if ((currentKeyStates[SDL_SCANCODE_UP]))
     {
         x = -1; //오른쪽을 보고 있을 때는 case 2
         TheTextureManager::Instance()->drawFrame("Player_", move_x - cameraX, move_y - cameraY, 98,
-            87, 1, o_currentFrame, m_pRenderer);
+            87, 1, m_currentFrame, m_pRenderer);
     }
     else if (currentJump == true) //점프
     {

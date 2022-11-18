@@ -11,7 +11,7 @@ public:
 	virtual void clean() {}
 	virtual ~SDLGameObject() {}
 	Vector2D m_position;
-
+	Vector2D m_velocity;
 protected:
 	int m_x;
 	int m_y;

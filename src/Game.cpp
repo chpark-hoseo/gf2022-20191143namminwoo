@@ -1,7 +1,7 @@
 #include "Game.h"
 //#include "TextureManager.h"
 //#include "GameObject.h"
-
+#include "InputHandler.h"
 Game* Game::s_pInstance = 0;
 
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
@@ -71,18 +71,7 @@ bool Game::running()
 
 void Game::handleEvents()
 {
-    while (SDL_PollEvent(&event)) //조건적 시행이 아닌 콘솔창 시행 내내 
-                                  //동작 가능하게 만들기 위해서 라고 추측함
-    {
-        switch (event.type)
-        {
-        case SDL_QUIT:
-            m_bRunning = false;
-            break;
-        default:
-            break;
-        }
-    }
+    TheInputHandler::Instance()->update();
 }
 
 void Game::clean()
@@ -90,5 +79,6 @@ void Game::clean()
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
    // SDL_DestroyTexture();
+    TheInputHandler::Instance()->clean();
     SDL_Quit();
 }

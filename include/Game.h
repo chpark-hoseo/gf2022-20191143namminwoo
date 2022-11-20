@@ -28,7 +28,7 @@ public:
 		return s_pInstance;
 	}
 	SDL_Renderer* getRenderer() const { return m_pRenderer; }
-
+	void quit() { m_bRunning = false; }
 private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
@@ -50,4 +50,6 @@ private:
 
 	//for-each 문을 위한 vector형 배열 선언
 	std::vector<int>go = {0,1};
+
+
 }; typedef Game TheGame;

@@ -1,4 +1,5 @@
 #include "Monster.h"
+#include "main.h"
 Monster::Monster(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 void Monster::draw()
 {

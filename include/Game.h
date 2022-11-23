@@ -1,10 +1,11 @@
 #pragma once
-#include "main.h"
+//#include "main.h"
 #include "TextureManager.h"
-#include "Player.h"
-#include "Monster.h"
-#include "Enemy.h"
-
+//#include "Player.h"
+//#include "Monster.h"
+//#include "Enemy.h"
+#include <vector>
+#include "GameObject.h"
 #define SCREEN_WIDTH 1000 //보이는 화면 넓이
 #define SCREEN_HEIGHT 500
 #define LEVEL_WIDTH 1920 //전체 화면 넓이

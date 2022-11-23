@@ -1,7 +1,9 @@
 #include "Game.h"
 //#include "TextureManager.h"
 //#include "GameObject.h"
-
+#include "Player.h"
+#include "Monster.h"
+#include "Enemy.h"
 Game* Game::s_pInstance = 0;
 
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)

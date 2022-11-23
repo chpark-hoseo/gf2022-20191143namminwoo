@@ -1,5 +1,6 @@
 #pragma once
-#include "main.h"
+//#include "main.h"
+#include <string>
 class LoaderParams {
 public:
     LoaderParams(int x, int y, int width, int height, std::string textureID)

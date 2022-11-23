@@ -1,7 +1,8 @@
 #pragma once
 #include <SDL2/SDL.h> 
-#include "main.h"
-
+// #include "main.h"
+#include <map>
+#include <string>
 class TextureManager {
 
 private:

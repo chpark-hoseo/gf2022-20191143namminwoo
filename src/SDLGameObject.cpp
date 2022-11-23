@@ -27,6 +27,6 @@ void SDLGameObject::update()
 {
     //m_position.setX(m_position.getX() + 1);
     //m_position.setY(m_position.getY() + 1);
-    m_velocity += m_acceleration;
-    m_position += m_velocity;
+    m_velocity = m_velocity + m_acceleration;
+    m_position = m_position + m_velocity;
 }

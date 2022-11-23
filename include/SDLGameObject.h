@@ -1,7 +1,9 @@
 #pragma once
-#include "main.h"
+// #include "main.h"
 #include "GameObject.h"
-#include "Vector2D.h"
+ #include "Vector2D.h"
+
+//class Vector2D;
 
 class SDLGameObject : public GameObject {
 public:

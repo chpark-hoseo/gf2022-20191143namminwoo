@@ -29,7 +29,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false; // SDL 초기화 실패
     }
 
-    if (!TheTextureManager::Instance()->load("Assets/animate-alpha.png", "animate", m_pRenderer))
+    if (!TheTextureManager::Instance()->load("Assets/Mush.bmp", "animate", m_pRenderer))
     {
         return false;
     }

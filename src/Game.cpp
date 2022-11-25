@@ -29,14 +29,18 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false; // SDL 초기화 실패
     }
 
-    if (!TheTextureManager::Instance()->load("Assets/Mush.bmp", "animate", m_pRenderer))
+    if (!TheTextureManager::Instance()->load("Assets/Mush.bmp", "Mush", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/back.bmp", "background", m_pRenderer))
     {
         return false;
     }
 
-    m_gameObjects.push_back(new Player(new LoaderParams(10, 100, 128, 82, "animate")));
+    m_gameObjects.push_back(new Monster(new LoaderParams(10, 100, 147, 154, "Mush")));
     m_gameObjects.push_back(new Enemy(new LoaderParams(100, 150, 128, 82, "animate")));
-    m_gameObjects.push_back(new Monster(new LoaderParams(100, 200, 128, 82, "animate")));
+    m_gameObjects.push_back(new Player(new LoaderParams(100, 200, 128, 82, "animate")));
 
 
     m_bRunning = true;

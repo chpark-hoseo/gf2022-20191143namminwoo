@@ -29,11 +29,27 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false; // SDL 초기화 실패
     }
 
-    if (!TheTextureManager::Instance()->load("Assets/Mush.bmp", "Mush", m_pRenderer))
+    if (!TheTextureManager::Instance()->load("Assets/Mush.bmp", "mush", m_pRenderer))
     {
         return false;
     }
-    if (!TheTextureManager::Instance()->load("Assets/back.bmp", "background", m_pRenderer))
+    if (!TheTextureManager::Instance()->load("Assets/back.png", "background", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/m_Move2.png", "player_move", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/m_Smash.png", "player_attack", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/m_Jump.png", "player_jump", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/obstac.png", "floor", m_pRenderer))
     {
         return false;
     }

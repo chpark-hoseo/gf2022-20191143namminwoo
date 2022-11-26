@@ -6,7 +6,7 @@ void Monster::draw()
 }
 void Monster::update()
 {
-	m_currentFrame = ((SDL_GetTicks() / 100) % 6);
+	m_currentFrame = ((SDL_GetTicks() / 100) % 5);
 
 	m_x += mob1_move;
 	if (m_x == 500)

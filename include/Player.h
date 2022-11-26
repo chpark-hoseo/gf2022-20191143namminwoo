@@ -14,5 +14,4 @@ public:
     virtual void clean();
     void handleInput();
     void jump();
-    bool attack = false;
 };

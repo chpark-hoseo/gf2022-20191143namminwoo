@@ -39,14 +39,6 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
-    if (!TheTextureManager::Instance()->load("Assets/m_Smash.png", "player_attack", m_pRenderer))
-    {
-        return false;
-    }
-    if (!TheTextureManager::Instance()->load("Assets/m_Jump.png", "player_jump", m_pRenderer))
-    {
-        return false;
-    }
     if (!TheTextureManager::Instance()->load("Assets/obstac.png", "floor", m_pRenderer))
     {
         return false;
@@ -54,15 +46,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
     //m_gameObjects.push_back(new Background(new LoaderParams(0, 0, 1160, 10000, "background")));
     m_gameObjects.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
-    m_gameObjects.push_back(new Player(new LoaderParams(100, 200, 99, 87, "player_move")));
-    //if (player.attack == false)
-    //{
-    //    m_gameObjects.push_back(new Player(new LoaderParams(100, 200, 99, 87, "player_move")));
-    //}
-    //else if (player.attack == true)
-    //{
-    //    m_gameObjects.push_back(new Player(new LoaderParams(100, 200, 99, 87, "player_attack")));
-    //}
+    m_gameObjects.push_back(new Player(new LoaderParams(100, 200, 100, 91, "player_move")));
 
 
     m_bRunning = true;

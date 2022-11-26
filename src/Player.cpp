@@ -1,13 +1,14 @@
 #include "Player.h"
 #include "InputHandler.h"
 Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
-
 void Player::draw()
 {
-    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) { //오른쪽 걷기
+        x = 1;
         SDLGameObject::m_currentRow = 1;
     }
-    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
+    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) { //왼쪽 걷기
+        x = -1;
         SDLGameObject::m_currentRow = 0;
     }
     SDLGameObject::draw();
@@ -25,37 +26,26 @@ void Player::handleInput()
 {
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5); //키입력 도중에만 프레임 나오게
-        attack = false;
-        x = 1;
         m_velocity.setX(5);
     }
     else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
-        attack = false;
-        x = -1;
         m_velocity.setX(-5);
     }
     else  if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
-        attack = false;
         m_velocity.setY(-5);
     }
     else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
-        attack = false;
         m_velocity.setY(5);
     }
     else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE)) { //점프
         m_currentFrame = 0;
         currentJump = true;
-        attack = false;
+        std::cout << currentJump << " " << m_JumpSpeed << " " << "" << std::endl;
         jump();
     }
-    //else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LCTRL)) //공격
-    //{
-    //    m_currentFrame = ((SDL_GetTicks() / 100) % 4);
-    //    attack = true;
-    //}
     else
     {
         m_currentFrame = 0;

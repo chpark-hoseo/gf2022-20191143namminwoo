@@ -32,10 +32,10 @@ public:
     void onMouseButtonUp(SDL_Event event);
     void onKeyDown();
     void onKeyUp();
+    const Uint8* m_keystates;
 
 private:
     static InputHandler* s_pInstance;
-    const Uint8* m_keystates;
     std::vector<bool> m_mouseButtonStates;
 
     InputHandler();

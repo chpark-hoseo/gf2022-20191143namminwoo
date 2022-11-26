@@ -4,28 +4,39 @@ Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 
 void Player::draw()
 {
-	SDLGameObject::draw();
+    //if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
+    //    SDLGameObject::draw();
+    //}
+    //if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
+    //    SDLGameObject::draw();
+    //}
+    SDLGameObject::draw();
 }
 
 void Player::update()
 {
 	handleInput();
-	m_currentFrame = ((SDL_GetTicks() / 100) % 6);
-	m_velocity.setX(1);
+	m_velocity.setX(0);
+    m_velocity.setY(0);
 	SDLGameObject::update(); // ← 부모 클래스의 함수 호출 
 }
 void Player::handleInput()
 {
+
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
+        m_currentFrame = ((SDL_GetTicks() / 100) % 5); //키입력 도중에만 프레임 나오게
         m_velocity.setX(2);
     }
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
+        m_currentFrame = ((SDL_GetTicks() / 100) % 5);
         m_velocity.setX(-2);
     }
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
+        m_currentFrame = ((SDL_GetTicks() / 100) % 5);
         m_velocity.setY(-2);
     }
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) {
+        m_currentFrame = ((SDL_GetTicks() / 100) % 5);
         m_velocity.setY(2);
     }
 }

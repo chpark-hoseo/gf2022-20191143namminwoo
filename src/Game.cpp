@@ -54,9 +54,9 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false;
     }
 
-    m_gameObjects.push_back(new Monster(new LoaderParams(10, 100, 147, 154, "Mush")));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
     m_gameObjects.push_back(new Enemy(new LoaderParams(100, 150, 128, 82, "animate")));
-    m_gameObjects.push_back(new Player(new LoaderParams(100, 200, 128, 82, "animate")));
+    m_gameObjects.push_back(new Player(new LoaderParams(100, 200, 99, 87, "player_move")));
 
 
     m_bRunning = true;

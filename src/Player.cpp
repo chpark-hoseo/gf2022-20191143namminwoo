@@ -20,36 +20,62 @@ void Player::update()
 	handleInput();
 	SDLGameObject::update(); // ← 부모 클래스의 함수 호출 
 }
+
 void Player::handleInput()
 {
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5); //키입력 도중에만 프레임 나오게
         attack = false;
-        m_velocity.setX(2);
+        x = 1;
+        m_velocity.setX(5);
     }
     else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
         attack = false;
-        m_velocity.setX(-2);
+        x = -1;
+        m_velocity.setX(-5);
     }
     else  if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
         attack = false;
-        m_velocity.setY(-2);
+        m_velocity.setY(-5);
     }
     else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
         attack = false;
-        m_velocity.setY(2);
+        m_velocity.setY(5);
     }
-    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LCTRL)) //공격
-    {
-        m_currentFrame = ((SDL_GetTicks() / 100) % 4);
-        attack = true;
+    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE)) { //점프
+        m_currentFrame = 0;
+        currentJump = true;
+        attack = false;
+        jump();
     }
+    //else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LCTRL)) //공격
+    //{
+    //    m_currentFrame = ((SDL_GetTicks() / 100) % 4);
+    //    attack = true;
+    //}
     else
     {
         m_currentFrame = 0;
+    }
+}
+void Player::jump()
+{
+    if (currentJump == false) return; //키 한번 입력 후 중복 입력 방지
+
+    else if (currentJump == true)
+    {
+        m_velocity.setY(m_JumpSpeed);
+        m_velocity.setX(x * 10);//없으면 제자리 점프, 있으면 전방으로 점프
+        m_JumpSpeed += 10;
+
+        if (m_JumpSpeed == 60)
+        {
+            currentJump = false;
+            m_JumpSpeed = -50;
+        }
     }
 }
 void Player::clean() {}

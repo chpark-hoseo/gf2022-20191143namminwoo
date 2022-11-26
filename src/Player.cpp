@@ -4,40 +4,52 @@ Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 
 void Player::draw()
 {
-    //if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
-    //    SDLGameObject::draw();
-    //}
-    //if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
-    //    SDLGameObject::draw();
-    //}
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
+        SDLGameObject::m_currentRow = 1;
+    }
+    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
+        SDLGameObject::m_currentRow = 0;
+    }
     SDLGameObject::draw();
 }
 
 void Player::update()
 {
-	handleInput();
 	m_velocity.setX(0);
     m_velocity.setY(0);
+	handleInput();
 	SDLGameObject::update(); // ← 부모 클래스의 함수 호출 
 }
 void Player::handleInput()
 {
-
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5); //키입력 도중에만 프레임 나오게
+        attack = false;
         m_velocity.setX(2);
     }
-    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
+    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
+        attack = false;
         m_velocity.setX(-2);
     }
-    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
+    else  if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
+        attack = false;
         m_velocity.setY(-2);
     }
-    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) {
+    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
+        attack = false;
         m_velocity.setY(2);
+    }
+    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LCTRL)) //공격
+    {
+        m_currentFrame = ((SDL_GetTicks() / 100) % 4);
+        attack = true;
+    }
+    else
+    {
+        m_currentFrame = 0;
     }
 }
 void Player::clean() {}
@@ -59,19 +71,3 @@ bool InputHandler::isKeyOneDown(SDL_Scancode key) {
     }
     return false;
 }
-//void Player::load(int x, int y, int width, int height, std::string textureID)
-//{
-//    GameObject::load(x, y, width, height, textureID);
-//}
-//
-//void Player::draw(SDL_Renderer* pRenderer)
-//{
-//    GameObject::draw(pRenderer);
-//}
-//
-//void Player::update()
-//{
-//    m_currentFrame = ((SDL_GetTicks() / 100) % 6);
-//
-//    m_x -= 1;
-//}

@@ -1,9 +1,8 @@
 #include "Game.h"
-//#include "TextureManager.h"
-//#include "GameObject.h"
 #include "InputHandler.h"
-Game* Game::s_pInstance = 0;
 
+Game* Game::s_pInstance = 0;
+Player player;
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) 
@@ -54,9 +53,16 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false;
     }
 
+    //m_gameObjects.push_back(new Background(new LoaderParams(0, 0, 1160, 10000, "background")));
     m_gameObjects.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
-    m_gameObjects.push_back(new Enemy(new LoaderParams(100, 150, 128, 82, "animate")));
-    m_gameObjects.push_back(new Player(new LoaderParams(100, 200, 99, 87, "player_move")));
+    if (player.attack == false)
+    {
+        m_gameObjects.push_back(new Player(new LoaderParams(100, 200, 99, 87, "player_move")));
+    }
+    else if (player.attack == true)
+    {
+        m_gameObjects.push_back(new Player(new LoaderParams(100, 200, 99, 87, "player_attack")));
+    }
 
 
     m_bRunning = true;
@@ -69,7 +75,6 @@ void Game::update()
     {
         m_gameObjects[i]->update();
     }
-
     SDL_Delay(10);
 }
 void Game::render()
@@ -98,7 +103,6 @@ void Game::clean()
 {
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
-   // SDL_DestroyTexture();
     TheInputHandler::Instance()->clean();
     SDL_Quit();
 }

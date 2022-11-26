@@ -1,5 +1,6 @@
 #pragma once
 #include "SDLGameObject.h"
+
 class Background : public SDLGameObject
 {
 public:

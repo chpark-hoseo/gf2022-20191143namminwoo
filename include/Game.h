@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "Enemy.h"
+#include "Background.h"
 
 #define SCREEN_WIDTH 1000 //보이는 화면 넓이
 #define SCREEN_HEIGHT 500

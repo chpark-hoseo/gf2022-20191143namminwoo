@@ -7,7 +7,7 @@ void Enemy::handleInput()
 	//if (TheInputHandler::Instance()->getMouseButtonState(LEFT)) {
 	//	printf("shoot \n");
 	//}
-	//Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
+	Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
 	//m_velocity = (*vec - m_position) / 100;
 }
 void Enemy::draw()
@@ -16,7 +16,7 @@ void Enemy::draw()
 }
 void Enemy::update()
 {
-	m_x -= 10;
+	m_position.getX();
 	handleInput();
 	m_currentFrame = ((SDL_GetTicks() / 100) % 5);
 	SDLGameObject::update();

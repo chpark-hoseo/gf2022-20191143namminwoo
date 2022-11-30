@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "InputHandler.h"
+
 Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 void Player::draw()
 {
@@ -21,6 +22,14 @@ void Player::update()
     m_velocity.setY(0);
 	handleInput();
 	SDLGameObject::update(); // ← 부모 클래스의 함수 호출 
+    if (m_position.getY() < 500)
+    {
+        m_acceleration.setY(m_JumpSpeed * -1);
+    }
+    else
+    {
+        m_acceleration.setY(0);
+    }
 }
 
 void Player::handleInput()
@@ -54,13 +63,11 @@ void Player::handleInput()
 void Player::jump()
 {
     //if (currentJump == false) return; //키 한번 입력 후 중복 입력 방지
-
     //else if (currentJump == true)
     //{
     //    m_velocity.setY(m_JumpSpeed);
     //    m_velocity.setX(x * 10);    //없으면 제자리 점프, 있으면 전방으로 점프
     //    m_JumpSpeed += 10;
-
     //    if (m_JumpSpeed == 60)
     //    {
     //        currentJump = false;
@@ -71,10 +78,10 @@ void Player::jump()
     if (currentJump == false) return;
     else if (currentJump == true)
     {
-        m_velocity.setY(m_JumpSpeed);
-        m_velocity.setX(x * 10);
-        m_JumpSpeed += 4;
         std::cout << m_JumpSpeed << std::endl;
+        m_acceleration.setY(m_JumpSpeed);
+        //m_acceleration.setX(x * 10);
+        //m_JumpSpeed += 4;
 
         if (m_JumpSpeed == 24)
         {

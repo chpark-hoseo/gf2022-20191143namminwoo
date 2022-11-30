@@ -6,10 +6,6 @@
 #include "Enemy.h"
 #include "Background.h"
 
-#define SCREEN_WIDTH 1000 //보이는 화면 넓이
-#define SCREEN_HEIGHT 500
-#define LEVEL_WIDTH 1920 //전체 화면 넓이
-#define LEVEL_HEIGHT 1080
 
 class Game
 {

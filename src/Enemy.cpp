@@ -17,8 +17,11 @@ void Enemy::draw()
 void Enemy::update()
 {
 	m_position.getX();
-	handleInput();
+	//*handleInput();
 	m_currentFrame = ((SDL_GetTicks() / 100) % 5);
+
+	m_velocity.setX(5);
+
 	SDLGameObject::update();
 }
 void Enemy::clean() {}

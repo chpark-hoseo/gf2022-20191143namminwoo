@@ -7,16 +7,17 @@ void Monster::draw()
 void Monster::update()
 {
 	m_currentFrame = ((SDL_GetTicks() / 100) % 5);
-
-	m_x += mob1_move;
-	if (m_x == 500)
-	{
-		mob1_move = -10;
-	}
-	else if (m_x == 0)
-	{
-		mob1_move = 10;
-	}
+	//std::cout << m_position.getX() << std::endl;
+	//m_velocity.setX(5);
+	//m_x += mob1_move;
+	//if (m_x == 500)
+	//{
+	//	mob1_move = -10;
+	//}
+	//else if (m_x == 0)
+	//{
+	//	mob1_move = 10;
+	//}
 }
 void Monster::clean() {}
 

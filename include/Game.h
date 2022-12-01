@@ -5,7 +5,7 @@
 #include "Monster.h"
 #include "Enemy.h"
 #include "Background.h"
-
+#include "Camera.h"
 
 class Game
 {

@@ -6,7 +6,7 @@
 #include "Enemy.h"
 #include "Background.h"
 #include "Camera.h"
-
+#include "Floor.h"
 class Game
 {
 public:

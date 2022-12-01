@@ -9,7 +9,6 @@ void Background::draw()
 }
 void Background::update()
 {
-	std::cout << "BG X : " << m_position.getX() << " BG Y : " << m_position.getY() << std::endl; //-160
 	m_velocity.setX(0);
 	//m_velocity.setY(0);
 	handleInput();
@@ -19,11 +18,11 @@ void Background::handleInput()
 {
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT))
 	{
-		m_velocity.setX(-Camera::cameraX);
+		m_velocity.setX(-5);
 	}
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT))
 	{
-		m_velocity.setX(Camera::cameraX);
+		m_velocity.setX(5);
 	}
 	//else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
 	//{

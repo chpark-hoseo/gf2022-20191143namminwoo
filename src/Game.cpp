@@ -48,7 +48,12 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     m_gameObjects.push_back(new Background(new LoaderParams(0, 0, 1160, 10000, "background")));
     m_gameObjects.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
     m_gameObjects.push_back(new Player(new LoaderParams(300, 600, 100, 91, "player_move")));
-    //m_gameObjects.push_back(new Player(new LoaderParams(700, 500, 100, 91, "floor")));
+    m_gameObjects.push_back(new Floor(new LoaderParams(1000, 725, 200, 75, "floor")));
+    m_gameObjects.push_back(new Floor(new LoaderParams(800, 725, 200, 75, "floor")));
+    m_gameObjects.push_back(new Floor(new LoaderParams(600, 725, 200, 75, "floor")));
+    m_gameObjects.push_back(new Floor(new LoaderParams(400, 725, 200, 75, "floor")));
+    m_gameObjects.push_back(new Floor(new LoaderParams(200, 725, 200, 75, "floor")));
+    m_gameObjects.push_back(new Floor(new LoaderParams(0, 725, 200, 75, "floor")));
     m_gameObjects.push_back(new Camera(new LoaderParams(500, 500, 0, 0, "")));
 
     m_bRunning = true;

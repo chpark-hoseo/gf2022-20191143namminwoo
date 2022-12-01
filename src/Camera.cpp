@@ -7,8 +7,6 @@ Camera::Camera(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 
 void Camera::update()
 {
-   //std::cout << "Camera X : " << cameraX << std::endl;
-
    cameraX = (Player::player_X + 100 / 2) - SCREEN_WIDTH / 2;
    cameraY = (Player::player_Y + 91 / 2) - SCREEN_HEIGHT / 2;
 

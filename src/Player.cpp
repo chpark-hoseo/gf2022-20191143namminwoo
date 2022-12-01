@@ -32,23 +32,22 @@ void Player::update()
 
 	SDLGameObject::update(); // ← 부모 클래스의 함수 호출 
 
-    //if (m_position.getY() <= 690) //중력 가속도
-    //{
-    //    m_acceleration.setY(m_JumpSpeed * -1);
-    //}
-    //else //땅에 닿았을 때
-    //{
-    //    m_acceleration.setX(0);
-    //    m_acceleration.setY(0);
-    //    currentJump = false;
-    //}
+    if (m_position.getY() <= 650) //중력 가속도
+    {
+        m_acceleration.setY(m_JumpSpeed * -1);
+    }
+    else //땅에 닿았을 때
+    {
+        m_acceleration.setX(0);
+        m_acceleration.setY(0);
+        currentJump = false;
+    }
 }
 
 void Player::handleInput()
 {
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);   //키입력 도중에만 프레임 나오게
-
         if ((m_position.getX() + 100 / 2 > LEVEL_WIDTH)) {  //화면 밖으로 나가지 못하게
             m_velocity.setX(0) ;
         }
@@ -59,7 +58,6 @@ void Player::handleInput()
     }
     else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
-
         if (m_position.getX() < 0)   //화면 밖으로 나가지 못하게
         {
             m_velocity.setX(0);
@@ -96,12 +94,6 @@ void Player::handleInput()
         m_currentFrame = 0;
         currentJump = true;
         jump();
-
-        ////점프하는 중에도 화면 밖을 벗어나지 않게
-        //if ((m_position.getX() + 100 / 2 > LEVEL_HEIGHT) || m_position.getX() < 0) 
-        //{
-        //    m_velocity.setX(x * 5);
-        //}
     }
     else
     {
@@ -113,8 +105,17 @@ void Player::jump()
     if (currentJump == false)  return;
     else if (currentJump == true)
     {
-        m_acceleration.setY(m_JumpSpeed - Camera::cameraY);
-        m_acceleration.setX(x * 5 - Camera::cameraX);
+        //점프하는 중에도 화면 밖을 벗어나지 않게
+        if ((m_position.getX() + 100 / 2 > LEVEL_HEIGHT) || m_position.getX() < 0)
+        {
+            m_acceleration.setY(m_JumpSpeed /*- Camera::cameraY*/);
+            m_velocity.setX(0);
+        }
+        else
+        {
+            m_acceleration.setY(m_JumpSpeed /*- Camera::cameraY*/);
+            m_acceleration.setX(x * 5 /*- Camera::cameraX*/);
+        }
     }
 }
 void Player::clean() {}

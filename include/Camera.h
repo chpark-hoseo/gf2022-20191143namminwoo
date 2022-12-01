@@ -14,5 +14,4 @@ public :
 
 	static float cameraX;
 	static float cameraY;
-
 };

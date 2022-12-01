@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "InputHandler.h"
 
+int Game::gamePlay = 0;
+
 Game* Game::s_pInstance = 0;
 
 bool Game::init(const char* title, int xpos, int ypos, int height, int width, int flags)
@@ -14,7 +16,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
             if (m_pRenderer != 0) {
                 SDL_SetRenderDrawColor(
-                    m_pRenderer, 255, 255, 0, 255);
+                    m_pRenderer, 0, 0, 0, 255);
             }
             else {
                 return false; // 랜더러 생성 실패
@@ -44,17 +46,44 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
+    if (!TheTextureManager::Instance()->load("Assets/main.jpg", "mainbg", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/button.png", "playbt", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/exit.png", "exitbt", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/gameover.png", "gameoverbt", m_pRenderer))
+    {
+        return false;
+    }
 
-    m_gameObjects.push_back(new Background(new LoaderParams(0, 0, 1160, 10000, "background")));
-    m_gameObjects.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
-    m_gameObjects.push_back(new Player(new LoaderParams(300, 600, 100, 91, "player_move")));
-    m_gameObjects.push_back(new Floor(new LoaderParams(1000, 725, 200, 75, "floor")));
-    m_gameObjects.push_back(new Floor(new LoaderParams(800, 725, 200, 75, "floor")));
-    m_gameObjects.push_back(new Floor(new LoaderParams(600, 725, 200, 75, "floor")));
-    m_gameObjects.push_back(new Floor(new LoaderParams(400, 725, 200, 75, "floor")));
-    m_gameObjects.push_back(new Floor(new LoaderParams(200, 725, 200, 75, "floor")));
-    m_gameObjects.push_back(new Floor(new LoaderParams(0, 725, 200, 75, "floor")));
-    m_gameObjects.push_back(new Camera(new LoaderParams(500, 500, 0, 0, "")));
+    { //메인화면
+        m_gameStart.push_back(new MainUI(new LoaderParams(0, 0, 1000, 800, "mainbg")));
+        m_gameStart.push_back(new MainUI(new LoaderParams(300, 300, 400, 100, "playbt")));
+        m_gameStart.push_back(new MainUI(new LoaderParams(300, 500, 400, 100, "exitbt")));
+    }
+
+    { //게임씬
+        m_gameObjects.push_back(new Background(new LoaderParams(0, 0, 1160, 10000, "background")));
+        m_gameObjects.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
+        m_gameObjects.push_back(new Player(new LoaderParams(300, 600, 100, 91, "player_move")));
+        m_gameObjects.push_back(new Floor(new LoaderParams(1000, 725, 200, 75, "floor")));
+        m_gameObjects.push_back(new Floor(new LoaderParams(800, 725, 200, 75, "floor")));
+        m_gameObjects.push_back(new Floor(new LoaderParams(600, 725, 200, 75, "floor")));
+        m_gameObjects.push_back(new Floor(new LoaderParams(400, 725, 200, 75, "floor")));
+        m_gameObjects.push_back(new Floor(new LoaderParams(200, 725, 200, 75, "floor")));
+        m_gameObjects.push_back(new Floor(new LoaderParams(0, 725, 200, 75, "floor")));
+        m_gameObjects.push_back(new Camera(new LoaderParams(500, 500, 0, 0, "")));
+    }
+    { //종료
+        m_gameEnd.push_back(new GameOver(new LoaderParams(350, 400, 190, 30, "gameoverbt")));
+    }
 
     m_bRunning = true;
     return true;
@@ -62,9 +91,26 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-    for (int i = 0; i != m_gameObjects.size(); i++)
+    if (gamePlay == 0)
     {
-        m_gameObjects[i]->update();
+        for (int i = 0; i != m_gameStart.size(); i++)
+        {
+            m_gameStart[i]->update();
+        }
+    }
+    else if (gamePlay == 1)
+    {
+        for (int i = 0; i != m_gameObjects.size(); i++)
+        {
+            m_gameObjects[i]->update();
+        }
+    }
+    else if (gamePlay == 2)
+    {
+        for (int i = 0; i != m_gameEnd.size(); i++)
+        {
+            m_gameEnd[i]->update();
+        }
     }
     SDL_Delay(10);
 }
@@ -72,11 +118,27 @@ void Game::render()
 {
     SDL_RenderClear(m_pRenderer);
 
-    for (int i = 0; i != m_gameObjects.size(); i++) 
+    if (gamePlay == 0)
     {
-        m_gameObjects[i]->draw();
+        for (int i = 0; i != m_gameStart.size(); i++)
+        {
+            m_gameStart[i]->draw();
+        }
     }
-
+    else if (gamePlay == 1)
+    {
+        for (int i = 0; i != m_gameObjects.size(); i++)
+        {
+            m_gameObjects[i]->draw();
+        }
+    }
+    else if (gamePlay == 2)
+    {
+        for (int i = 0; i != m_gameEnd.size(); i++)
+        {
+            m_gameEnd[i]->draw();
+        }
+    }
     SDL_RenderPresent(m_pRenderer);
 }
 

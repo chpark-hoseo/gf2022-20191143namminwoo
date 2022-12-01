@@ -1,20 +1,22 @@
 #include "Player.h"
 #include "InputHandler.h"
 #include "Camera.h"
+
 float Player::player_X;
 float Player::player_Y;
 Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 void Player::draw()
 {
-    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) { //¿À¸¥ÂÊ °È±â
-        x = 1;
-        SDLGameObject::m_currentRow = 1;
-    }
-    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) { //¿ÞÂÊ °È±â
-        x = -1;
-        SDLGameObject::m_currentRow = 0;
-    }
-    SDLGameObject::draw();
+   if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) { //¿À¸¥ÂÊ °È±â
+       x = 1;
+       SDLGameObject::m_currentRow = 1;
+   }
+   else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) { //¿ÞÂÊ °È±â
+       x = -1;
+       SDLGameObject::m_currentRow = 0;
+   }
+   SDLGameObject::draw();
+
 }
 
 void Player::update()

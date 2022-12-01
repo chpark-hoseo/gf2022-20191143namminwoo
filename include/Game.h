@@ -7,6 +7,8 @@
 #include "Background.h"
 #include "Camera.h"
 #include "Floor.h"
+#include "MainUI.h"
+#include "GameOver.h"
 class Game
 {
 public:
@@ -16,6 +18,8 @@ public:
 	bool running();
 	void handleEvents();
 	void clean();
+
+	static int gamePlay; //0 = 메인, 1 = 게임, 2 = 종료 
 
 	static Game* Instance() { //유일객체 생성
 		if (s_pInstance == 0) {
@@ -37,7 +41,9 @@ private:
 
 	SDL_Event event;
 
+	std::vector<GameObject*> m_gameStart;
 	std::vector<GameObject*> m_gameObjects;
+	std::vector<GameObject*> m_gameEnd;
 
 	//for-each 문을 위한 vector형 배열 선언
 	std::vector<int>go = {0,1};

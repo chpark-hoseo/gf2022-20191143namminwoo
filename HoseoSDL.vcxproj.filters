@@ -107,5 +107,8 @@
     <ClInclude Include="include\GameOver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="include\skkkkkkkkkk.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

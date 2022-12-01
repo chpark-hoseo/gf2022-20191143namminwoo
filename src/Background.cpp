@@ -1,6 +1,7 @@
 #include "Background.h"
 #include "Camera.h"
 #include "InputHandler.h"
+#include "Player.h"
 Background::Background(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 
 void Background::draw()
@@ -18,11 +19,23 @@ void Background::handleInput()
 {
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT))
 	{
-		m_velocity.setX(-5);
+		if ((Player::player_X + 100 / 2 > LEVEL_WIDTH)) {
+			m_velocity.setX(0);
+		}
+		else
+		{
+			m_velocity.setX(-Camera::cameraX / 32);
+		}	
 	}
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT))
 	{
-		m_velocity.setX(5);
+		if ((Player::player_X < 0)) {
+			m_velocity.setX(0);
+		}
+		else
+		{
+			m_velocity.setX(Camera::cameraX / 32);
+		}
 	}
 	//else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
 	//{

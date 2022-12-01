@@ -20,7 +20,7 @@ void Enemy::update()
 	//*handleInput();
 	m_currentFrame = ((SDL_GetTicks() / 100) % 5);
 
-	m_velocity.setX(5);
+	//m_velocity.setX(5);
 
 	SDLGameObject::update();
 }

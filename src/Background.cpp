@@ -5,5 +5,8 @@ void Background::draw()
 {
 	SDLGameObject::draw();
 }
-void Background::update(){}
+void Background::update()
+{
+
+}
 void Background::clean() {}

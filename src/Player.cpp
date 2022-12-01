@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "InputHandler.h"
+#include "Camera.h"
 
 Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 void Player::draw()
@@ -40,17 +41,18 @@ void Player::update()
 
 void Player::handleInput()
 {
-    cameraMove();
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);   //키입력 도중에만 프레임 나오게
-        m_velocity.setX(5);
+        m_velocity.setX(5 - Camera::cameraX);
+
         if ((m_position.getX() + 100 / 2 > LEVEL_WIDTH)) {  //화면 밖으로 나가지 못하게
             m_velocity.setX(-5) ;
         }
     }
     else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
-        m_velocity.setX(-5);
+        m_velocity.setX(-5 - Camera::cameraX);
+
         if (m_position.getX() < 0)   //화면 밖으로 나가지 못하게
         {
             m_velocity.setX(5);
@@ -58,7 +60,8 @@ void Player::handleInput()
     }
     else  if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
-        m_velocity.setY(-5);
+        m_velocity.setY(-5 - Camera::cameraY);
+
         if (m_position.getY() < 0)  //화면 밖으로 나가지 못하게
         {
             m_velocity.setY(5);
@@ -66,7 +69,8 @@ void Player::handleInput()
     }
     else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
-        m_velocity.setY(5);
+        m_velocity.setY(5 - Camera::cameraY);
+
         if ((m_position.getY() + 100 / 2 > LEVEL_HEIGHT)) {  //화면 밖으로 나가지 못하게
             m_velocity.setY(-5);
         }
@@ -75,6 +79,7 @@ void Player::handleInput()
         m_currentFrame = 0;
         currentJump = true;
         jump();
+
         ////점프하는 중에도 화면 밖을 벗어나지 않게
         //if ((m_position.getX() + 100 / 2 > LEVEL_HEIGHT) || m_position.getX() < 0) 
         //{
@@ -91,27 +96,8 @@ void Player::jump()
     if (currentJump == false)  return;
     else if (currentJump == true)
     {
-        m_acceleration.setY(m_JumpSpeed);
-        m_acceleration.setX(x * 25);
-    }
-}
-void Player::cameraMove()
-{
-    if (cameraX < 0)
-    {
-        cameraX = 0;
-    }
-    if (cameraY < 0)
-    {
-        cameraY = 0;
-    }
-    if (cameraX > LEVEL_WIDTH - SCREEN_WIDTH)
-    {
-        cameraX = LEVEL_WIDTH - SCREEN_WIDTH;
-    }
-    if (cameraY > LEVEL_HEIGHT - SCREEN_HEIGHT)
-    {
-        cameraY = LEVEL_HEIGHT - SCREEN_HEIGHT;
+        m_acceleration.setY(m_JumpSpeed - Camera::cameraY);
+        m_acceleration.setX(x * 25 - Camera::cameraX);
     }
 }
 void Player::clean() {}

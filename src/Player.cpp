@@ -34,7 +34,7 @@ void Player::update()
 
 	SDLGameObject::update(); // ← 부모 클래스의 함수 호출 
 
-    //if (m_position.getY() <= 650) //중력 가속도
+    //if (m_position.getY() <= 665) //중력 가속도
     //{
     //    m_acceleration.setY(m_JumpSpeed * -1);
     //}
@@ -101,21 +101,23 @@ void Player::handleInput()
     //}
 
     std::cout << "x : " << p_x << " y : " << p_y << std::endl;
-    std::cout << "PlayerX : " << player_X << std::endl;
 
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);   //키입력 도중에만 프레임 나오게
-
-        if ((p_x + 100 / 2 > LEVEL_WIDTH)) {
+        if (p_x > 1060)
+        {
             m_velocity.setX(0);
-            p_x -= 0;
+        }
+        else if (p_x >= 500 && p_x <= 660)
+        {
+            m_velocity.setX(0);
+            p_x += 5;
         }
         else
         {
-            m_velocity.setX(5-Camera::cameraX/32);
+            m_velocity.setX(5);
             p_x += 5;
         }
-
         //if (p_x + 100 / 2 > LEVEL_WIDTH)
         //{
         //    m_velocity.setX(0);
@@ -129,14 +131,18 @@ void Player::handleInput()
     }
     else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
-
-        if ((p_x < 0)) {
+        if (p_x < 0)
+        {
             m_velocity.setX(0);
-            p_x += 0;
+        }
+        else if (p_x >= 500 && p_x <= 660)
+        {
+            m_velocity.setX(0);
+            p_x -= 5;
         }
         else
         {
-            m_velocity.setX(-5+ Camera::cameraX / 32);
+            m_velocity.setX(-5);
             p_x -= 5;
         }
 

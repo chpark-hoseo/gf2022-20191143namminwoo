@@ -163,6 +163,9 @@ void Player::jump()
     {
         m_acceleration.setY(m_JumpSpeed);
         m_acceleration.setX(x * 20);
+
+
+
         ////점프하는 중에도 화면 밖을 벗어나지 않게
         //if ((m_position.getX() + 100 / 2 > LEVEL_HEIGHT) || m_position.getX() < 0)
         //{

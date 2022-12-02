@@ -5,7 +5,7 @@ class Player : public SDLGameObject
 {
 private:
     bool currentJump = false;
-    int m_JumpSpeed = -10;
+    int m_JumpSpeed = -40;
     int x = -1; //왼쪽인지 오른쪽인지 구분, 
                 //1 = 오른쪽, -1 = 왼쪽
     int p_x = 300;

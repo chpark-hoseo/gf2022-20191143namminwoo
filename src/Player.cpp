@@ -25,25 +25,25 @@ void Player::update()
     m_currentFrame = ((SDL_GetTicks() / 100) % 5);
 
     player_X = p_x;
-    //player_Y = m_position.getY();
+    player_Y = p_x;
 
 	m_velocity.setX(0); //키입력 하는 동안만 움직이게
-    //m_velocity.setY(0);
+    m_velocity.setY(0);
 
 	handleInput();
 
 	SDLGameObject::update(); // ← 부모 클래스의 함수 호출 
 
-    //if (m_position.getY() <= 665) //중력 가속도
-    //{
-    //    m_acceleration.setY(m_JumpSpeed * -1);
-    //}
-    //else //땅에 닿았을 때
-    //{
-    //    m_acceleration.setX(0);
-    //    m_acceleration.setY(0);
-    //    currentJump = false;
-    //}
+    if (m_position.getY() <= 655) //중력 가속도
+    {
+        m_acceleration.setY(m_JumpSpeed * -1);
+    }
+    else //땅에 닿았을 때
+    {
+        m_acceleration.setX(0);
+        m_acceleration.setY(0);
+        currentJump = false;
+    }
 }
 
 void Player::handleInput()
@@ -118,16 +118,6 @@ void Player::handleInput()
             m_velocity.setX(5);
             p_x += 5;
         }
-        //if (p_x + 100 / 2 > LEVEL_WIDTH)
-        //{
-        //    m_velocity.setX(0);
-        //    p_x += 0;
-        //}
-        //else
-        //{
-        //    m_velocity.setX(5 - Camera::cameraX);
-        //    p_x += 5;
-        //}
     }
     else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) {
         m_currentFrame = ((SDL_GetTicks() / 100) % 5);
@@ -145,17 +135,6 @@ void Player::handleInput()
             m_velocity.setX(-5);
             p_x -= 5;
         }
-
-        //if (p_x < 0)
-        //{
-        //    m_velocity.setX(0);
-        //    p_x -= 0;
-        //}
-        //else
-        //{
-        //    m_velocity.setX(-5);
-        //    p_x -= 5;
-        //}
     }
     //else  if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
     //    m_currentFrame = ((SDL_GetTicks() / 100) % 5);
@@ -167,11 +146,11 @@ void Player::handleInput()
     //    m_velocity.setY(5);
     //    p_y += 5;
     //}
-    //else if (TheInputHandler::Instance()->isKeyOneDown(SDL_SCANCODE_SPACE)) {   //점프
-    //    m_currentFrame = 0;
-    //    currentJump = true;
-    //    jump();
-    //}
+    else if (TheInputHandler::Instance()->isKeyOneDown(SDL_SCANCODE_SPACE)) {   //점프
+        m_currentFrame = 0;
+        currentJump = true;
+        jump();
+    }
     else
     {
         m_currentFrame = 0; //움직이지 않을 때는 가만히                                                               
@@ -182,17 +161,19 @@ void Player::jump()
     if (currentJump == false)  return;
     else if (currentJump == true)
     {
-        //점프하는 중에도 화면 밖을 벗어나지 않게
-        if ((m_position.getX() + 100 / 2 > LEVEL_HEIGHT) || m_position.getX() < 0)
-        {
-            m_acceleration.setY(m_JumpSpeed /*- Camera::cameraY*/);
-            m_velocity.setX(0);
-        }
-        else
-        {
-            m_acceleration.setY(m_JumpSpeed /*- Camera::cameraY*/);
-            m_acceleration.setX(x * 5 /*- Camera::cameraX*/);
-        }
+        m_acceleration.setY(m_JumpSpeed);
+        m_acceleration.setX(x * 20);
+        ////점프하는 중에도 화면 밖을 벗어나지 않게
+        //if ((m_position.getX() + 100 / 2 > LEVEL_HEIGHT) || m_position.getX() < 0)
+        //{
+        //    m_acceleration.setY(-10 /*- Camera::cameraY*/);
+        //    m_velocity.setX(0);
+        //}
+        //else
+        //{
+        //    m_acceleration.setY(-10 /*- Camera::cameraY*/);
+        //    m_acceleration.setX(x * 5 /*- Camera::cameraX*/);
+        //}
     }
 }
 void Player::clean() {}

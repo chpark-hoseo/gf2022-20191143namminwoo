@@ -26,8 +26,7 @@ void Background::handleInput()
 		}
 		else
 		{
-			SDLGameObject::m_x -= 5;
-			//m_velocity.setX(-Camera::cameraX / 32);
+			m_velocity.setX(-1);
 		}
 		
 		//if (Camera::cameraX >= 160)
@@ -47,7 +46,7 @@ void Background::handleInput()
 		}
 		else
 		{
-			m_velocity.setX(Camera::cameraX / 32);
+			m_velocity.setX(1);
 		}
 		
 		//if (Camera::cameraX <= 0)

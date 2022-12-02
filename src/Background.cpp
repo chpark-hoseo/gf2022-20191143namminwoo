@@ -12,15 +12,24 @@ void Background::update()
 {
 	m_velocity.setX(0);
 	//m_velocity.setY(0);
-	//handleInput();
+	handleInput();
 	SDLGameObject::update();
 }
 void Background::handleInput()
 {
-	//m_velocity.setX(-Camera::cameraX / 32);
+	//m_velocity.setX(Camera::cameraX / 32);
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT))
 	{
-		m_velocity.setX(-Camera::cameraX / 32);
+		if (Player::player_X >= 660)
+		{
+			m_velocity.setX(0);
+		}
+		else
+		{
+			SDLGameObject::m_x -= 5;
+			//m_velocity.setX(-Camera::cameraX / 32);
+		}
+		
 		//if (Camera::cameraX >= 160)
 		//{
 		//	m_velocity.setX(0);
@@ -32,7 +41,15 @@ void Background::handleInput()
 	}
 	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT))
 	{		
-		m_velocity.setX(Camera::cameraX / 32);
+		if (Player::player_X <= 500)
+		{
+			m_velocity.setX(0);
+		}
+		else
+		{
+			m_velocity.setX(Camera::cameraX / 32);
+		}
+		
 		//if (Camera::cameraX <= 0)
 		//{
 		//	m_velocity.setX(0);

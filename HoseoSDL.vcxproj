@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Monster2.cpp" />
     <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Floor.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="include\main.h" />
     <ClInclude Include="include\MainUI.h" />
     <ClInclude Include="include\Monster.h" />
+    <ClInclude Include="include\Monster2.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\SDLGameObject.h" />
     <ClInclude Include="include\TextureManager.h" />

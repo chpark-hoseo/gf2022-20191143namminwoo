@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "InputHandler.h"
 #include "Player.h"
+
 int Game::gamePlay = 0;
 int Game::m_gameover = 0;
 
@@ -81,11 +82,12 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
         m_gameObjects.push_back(new Player(new LoaderParams(450, 665, 100, 91, "player")));
 
-        m_gameObjects.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
-        m_gameObjects.push_back(new Monster(new LoaderParams(400, 600, 147, 154, "mush")));
+        m_gameObjector.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
+        m_gameObjector.push_back(new Monster(new LoaderParams(400, 600, 147, 154, "mush")));
+        m_gameObjector.push_back(new Monster2(new LoaderParams(0, 0, 147, 154, "mush")));
     }
     { //Á¾·á
-        m_gameEnd.push_back(new GameOver(new LoaderParams(350, 400, 190, 30, "gameoverbt")));
+        m_gameEnd.push_back(new GameOver(new LoaderParams(400, 400, 190, 30, "gameoverbt")));
     }
 
     m_bRunning = true;
@@ -94,7 +96,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-    //std::cout << m_gameover << std::endl;
+    std::cout << m_gameover << std::endl;
     if (gamePlay == 0)
     {
         for (int i = 0; i != m_gameStart.size(); i++)
@@ -108,6 +110,10 @@ void Game::update()
         {
             m_gameObjects[i]->update();
         }
+        for (int i = 0; i != m_gameObjector.size(); i++)
+        {
+            m_gameObjector[i]->update();
+        }
     }
     else if (gamePlay == 2)
     {
@@ -117,10 +123,11 @@ void Game::update()
         }
     }
 
-    if (m_gameover == 2)
+    if (m_gameover == m_gameObjector.size())
     {
         gamePlay = 2;
     }
+
     SDL_Delay(10);
 }
 void Game::render()
@@ -139,6 +146,10 @@ void Game::render()
         for (int i = 0; i != m_gameObjects.size(); i++)
         {
             m_gameObjects[i]->draw();
+        }
+        for (int i = 0; i != m_gameObjector.size(); i++)
+        {
+            m_gameObjector[i]->draw();
         }
     }
     else if (gamePlay == 2)

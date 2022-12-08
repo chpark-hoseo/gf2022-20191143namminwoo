@@ -8,6 +8,7 @@
 #include "Floor.h"
 #include "MainUI.h"
 #include "GameOver.h"
+#include "Monster2.h"
 class Game
 {
 public:
@@ -44,6 +45,7 @@ private:
 
 	std::vector<GameObject*> m_gameStart;
 	std::vector<GameObject*> m_gameObjects;
+	std::vector<GameObject*> m_gameObjector;
 	std::vector<GameObject*> m_gameEnd;
 
 	//for-each 문을 위한 vector형 배열 선언

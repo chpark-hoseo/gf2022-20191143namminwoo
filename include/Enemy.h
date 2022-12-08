@@ -8,4 +8,9 @@ public:
     virtual void update();
     virtual void clean();
     virtual void handleInput();
+    void move();
+private:
+    bool moove = false;
+    bool m_draw = false;
+    bool m_Enemy = true;
 };

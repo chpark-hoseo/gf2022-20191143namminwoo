@@ -5,7 +5,6 @@
 #include "Monster.h"
 #include "Enemy.h"
 #include "Background.h"
-#include "Camera.h"
 #include "Floor.h"
 #include "MainUI.h"
 #include "GameOver.h"
@@ -30,6 +29,8 @@ public:
 	}
 	SDL_Renderer* getRenderer() const { return m_pRenderer; }
 	void quit() { m_bRunning = false; }
+
+	static int m_gameover;
 private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;

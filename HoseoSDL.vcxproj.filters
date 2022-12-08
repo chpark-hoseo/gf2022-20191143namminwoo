@@ -45,9 +45,6 @@
     <ClCompile Include="src\Background.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="src\Camera.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="src\Floor.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -95,9 +92,6 @@
     <ClInclude Include="include\Background.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="include\Camera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="include\Floor.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -105,9 +99,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\GameOver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="include\skkkkkkkkkk.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

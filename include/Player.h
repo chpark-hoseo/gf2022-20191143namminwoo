@@ -10,14 +10,15 @@ private:
                 //1 = 오른쪽, -1 = 왼쪽
     int p_x = 300;
     int p_y = 600;
+
+    int hitTime = 0; //공격 시 프레임
+
 public:
     Player(const LoaderParams* pParams);
     virtual void draw();
     virtual void update();
     virtual void clean();
     void handleInput();
-    void jump();
 
-    static float player_X;
-    static float player_Y;
+    static bool attack;
 };

@@ -3,13 +3,15 @@
 
 class Monster : public SDLGameObject
 {
-protected:
-    int mob1_move = 10;
-    int mob2_move = 5;
-
 public:
     Monster(const LoaderParams* pParams);
     virtual void draw();
     virtual void update();
     virtual void clean();
+    virtual void handleInput();
+    void move();
+private:
+    bool m_draw = false;
+    bool moove = false;
+    bool m_Monster = true;
 };

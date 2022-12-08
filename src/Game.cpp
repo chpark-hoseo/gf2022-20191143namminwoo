@@ -1,7 +1,8 @@
 #include "Game.h"
 #include "InputHandler.h"
-
+#include "Player.h"
 int Game::gamePlay = 0;
+int Game::m_gameover = 0;
 
 Game* Game::s_pInstance = 0;
 
@@ -38,7 +39,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
-    if (!TheTextureManager::Instance()->load("Assets/m_Move2.png", "player_move", m_pRenderer))
+    if (!TheTextureManager::Instance()->load("Assets/m_move2.png", "player", m_pRenderer))
     {
         return false;
     }
@@ -63,23 +64,25 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         return false;
     }
 
+
     { //메인화면
         m_gameStart.push_back(new MainUI(new LoaderParams(0, 0, 1000, 800, "mainbg")));
         m_gameStart.push_back(new MainUI(new LoaderParams(300, 300, 400, 100, "playbt")));
         m_gameStart.push_back(new MainUI(new LoaderParams(300, 500, 400, 100, "exitbt")));
     }
-
     { //게임씬
-        m_gameObjects.push_back(new Background(new LoaderParams(0, -9200, 1160, 10000, "background")));        
+        m_gameObjects.push_back(new Background(new LoaderParams(0, 0, 1000, 1000, "background")));        
         m_gameObjects.push_back(new Floor(new LoaderParams(1000, 725, 200, 75, "floor")));
         m_gameObjects.push_back(new Floor(new LoaderParams(800, 725, 200, 75, "floor")));
         m_gameObjects.push_back(new Floor(new LoaderParams(600, 725, 200, 75, "floor")));
         m_gameObjects.push_back(new Floor(new LoaderParams(400, 725, 200, 75, "floor")));
         m_gameObjects.push_back(new Floor(new LoaderParams(200, 725, 200, 75, "floor")));
         m_gameObjects.push_back(new Floor(new LoaderParams(0, 725, 200, 75, "floor")));
-        m_gameObjects.push_back(new Camera(new LoaderParams(500, 500, 0, 0, "")));
+
+        m_gameObjects.push_back(new Player(new LoaderParams(450, 665, 100, 91, "player")));
+
         m_gameObjects.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
-        m_gameObjects.push_back(new Player(new LoaderParams(300, 665, 100, 91, "player_move")));
+        m_gameObjects.push_back(new Monster(new LoaderParams(400, 600, 147, 154, "mush")));
     }
     { //종료
         m_gameEnd.push_back(new GameOver(new LoaderParams(350, 400, 190, 30, "gameoverbt")));
@@ -91,6 +94,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
+    //std::cout << m_gameover << std::endl;
     if (gamePlay == 0)
     {
         for (int i = 0; i != m_gameStart.size(); i++)
@@ -111,6 +115,11 @@ void Game::update()
         {
             m_gameEnd[i]->update();
         }
+    }
+
+    if (m_gameover == 2)
+    {
+        gamePlay = 2;
     }
     SDL_Delay(10);
 }

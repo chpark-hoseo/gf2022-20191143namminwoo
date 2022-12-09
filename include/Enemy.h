@@ -1,6 +1,6 @@
 #pragma once
-#include "SDLGameObject.h"
-class Enemy : public SDLGameObject
+#include "monster_parent.h"
+class Enemy : public monster_parent
 {
 public:
     Enemy(const LoaderParams* pParams);
@@ -9,8 +9,9 @@ public:
     virtual void clean();
     virtual void handleInput();
     void move();
+    void coliide();
 private:
-    bool moove = false;
+    bool moove = true;
     bool m_draw = false;
     bool m_Enemy = true;
 };

@@ -1,7 +1,7 @@
 #pragma once
-#include "SDLGameObject.h"
+#include "monster_parent.h"
 
-class Monster : public SDLGameObject
+class Monster : public monster_parent
 {
 public:
     Monster(const LoaderParams* pParams);
@@ -12,7 +12,7 @@ public:
     void move();
     void coliide();
 private:
-    bool m_draw = false;
+    bool m_draw = true;
     bool moove = false;
     bool m_Monster = true;
 };

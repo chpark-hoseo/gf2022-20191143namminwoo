@@ -10,6 +10,7 @@
 #include "GameOver.h"
 #include "Monster2.h"
 #include "BGMing.h"
+#include "monster_parent.h"
 class Game
 {
 public:

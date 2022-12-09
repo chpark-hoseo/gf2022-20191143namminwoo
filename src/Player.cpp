@@ -1,11 +1,15 @@
 #include "Player.h"
 #include "InputHandler.h"
+#include "Game.h"
 
 bool Player::attack;
+bool Player::player_hit;
 int Player::player_X;
 int Player::player_Y;
 
-Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
+Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {
+    player_hit = false;
+}
 void Player::draw()
 {
     Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
@@ -34,6 +38,7 @@ void Player::update()
     m_velocity.setY(0);
 
 	handleInput();
+    player_collide();
 
 	SDLGameObject::update(); // ← 부모 클래스의 함수 호출 
 
@@ -74,6 +79,19 @@ void Player::handleInput()
             m_velocity.setX(-5);
         }
     }
+    if ((TheInputHandler::Instance()->isKeyOneDown(SDL_SCANCODE_W)))
+    {
+        m_velocity.setY(-5);
+    }
+}
+void Player::player_collide()
+{
+    if (player_hit == true)
+    {
+        std::cout << "부딪혔다!" << std::endl;
+        /*Game::gamePlay = 2;*/
+    }
+    else return;
 }
 
 void Player::clean() {}

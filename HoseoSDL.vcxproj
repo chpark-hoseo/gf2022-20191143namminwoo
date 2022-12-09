@@ -154,6 +154,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MainUI.cpp" />
     <ClCompile Include="src\Monster.cpp" />
+    <ClCompile Include="src\monster_parent.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\SDLGameObject.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="include\SDLGameObject.h" />
     <ClInclude Include="include\TextureManager.h" />
     <ClInclude Include="include\Vector2D.h" />
+    <ClInclude Include="include\monster_parent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

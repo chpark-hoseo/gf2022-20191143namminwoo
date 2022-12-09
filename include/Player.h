@@ -19,8 +19,9 @@ public:
     virtual void update();
     virtual void clean();
     void handleInput();
-
+    void player_collide();
     static bool attack;
+    static bool player_hit;
     static int player_X;
     static int player_Y;
 };

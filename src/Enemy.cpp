@@ -28,14 +28,11 @@ void Enemy::handleInput()
 }
 void Enemy::draw()
 {
-	if (m_draw == true)
-	{
-
-	}
-	else
+	if (m_draw == false)
 	{
 		SDLGameObject::draw();
 	}
+	else return;
 }
 void Enemy::update()
 {

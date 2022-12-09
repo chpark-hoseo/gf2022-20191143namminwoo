@@ -10,6 +10,7 @@ public:
     virtual void clean();
     virtual void handleInput();
     void move();
+    void coliide();
 private:
     bool m_draw = false;
     bool moove = false;

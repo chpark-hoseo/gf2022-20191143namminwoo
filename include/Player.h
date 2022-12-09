@@ -21,4 +21,6 @@ public:
     void handleInput();
 
     static bool attack;
+    static int player_X;
+    static int player_Y;
 };

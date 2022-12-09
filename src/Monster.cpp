@@ -1,6 +1,7 @@
 #include "Monster.h"
 #include "InputHandler.h"
 #include "Game.h"
+#include "Player.h"
 Monster::Monster(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 void Monster::handleInput()
 {
@@ -23,14 +24,11 @@ void Monster::handleInput()
 }
 void Monster::draw()
 {
-	if (m_draw == true)
-	{
-
-	}
-	else
+	if (m_draw == false)
 	{
 		SDLGameObject::draw();
 	}
+	else return;
 }
 void Monster::update()
 {
@@ -60,5 +58,16 @@ void Monster::move()
 		moove = false;
 	}
 }
+void Monster::coliide()
+{
+	if (Player::player_X )
+	{
 
+	}
+	if (Player::player_Y )
+	{
+
+	}
+
+}
 void Monster::clean() {}

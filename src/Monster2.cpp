@@ -24,14 +24,11 @@ void Monster2::handleInput()
 }
 void Monster2::draw()
 {
-	if (m_draw == true)
-	{
-
-	}
-	else
+	if (m_draw == false)
 	{
 		SDLGameObject::draw();
 	}
+	else return;
 }
 void Monster2::update()
 {

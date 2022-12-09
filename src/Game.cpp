@@ -79,7 +79,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         m_gameObjects.push_back(new Floor(new LoaderParams(400, 725, 200, 75, "floor")));
         m_gameObjects.push_back(new Floor(new LoaderParams(200, 725, 200, 75, "floor")));
         m_gameObjects.push_back(new Floor(new LoaderParams(0, 725, 200, 75, "floor")));
-        //m_gameObjects.push_back(new BGMing(new LoaderParams(0, 0, 0, 0, "BGM")));
+        m_gameObjects.push_back(new BGMing(new LoaderParams(0, 0, 0, 0, "BGM")));
         m_gameObjects.push_back(new Player(new LoaderParams(450, 665, 100, 91, "player")));
 
         m_gameObjector.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
@@ -96,7 +96,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-    std::cout << m_gameover << std::endl;
+    //std::cout << m_gameover << std::endl;
     if (gamePlay == 0)
     {
         for (int i = 0; i != m_gameStart.size(); i++)

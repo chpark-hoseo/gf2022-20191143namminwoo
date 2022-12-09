@@ -11,6 +11,7 @@
 #include "Monster2.h"
 #include "BGMing.h"
 #include "monster_parent.h"
+#include "Mouse.h"
 class Game
 {
 public:

@@ -64,6 +64,10 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
+    if (!TheTextureManager::Instance()->load("Assets/mous.png", "Mouse", m_pRenderer))
+    {
+        return false;
+    }
 
 
     { //메인화면
@@ -82,9 +86,12 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         m_gameObjects.push_back(new BGMing(new LoaderParams(0, 0, 0, 0, "BGM")));
         m_gameObjects.push_back(new Player(new LoaderParams(450, 665, 100, 91, "player")));
 
+
         m_gameObjector.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
         m_gameObjector.push_back(new Monster(new LoaderParams(400, 600, 147, 154, "mush")));
         m_gameObjector.push_back(new Monster2(new LoaderParams(0, 0, 147, 154, "mush")));
+
+        m_gameObjector.push_back(new Player(new LoaderParams(500, 400, 420, 370, "Mouse")));
     }
     { //종료
         m_gameEnd.push_back(new GameOver(new LoaderParams(400, 400, 190, 30, "gameoverbt")));
@@ -154,7 +161,7 @@ void Game::render()
     }
     else if (gamePlay == 2)
     {
-        for (int i = 0; i != m_gameEnd.size(); i++)
+        for (int i = 0; i != m_gameEnd.size()-1; i++)
         {
             m_gameEnd[i]->draw();
         }

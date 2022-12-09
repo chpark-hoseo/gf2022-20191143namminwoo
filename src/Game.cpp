@@ -2,7 +2,7 @@
 #include "InputHandler.h"
 #include "Player.h"
 
-int Game::gamePlay = 0;
+float Game::gamePlay = 0;
 int Game::m_gameover = 0;
 
 Game* Game::s_pInstance = 0;
@@ -64,7 +64,15 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     {
         return false;
     }
-    if (!TheTextureManager::Instance()->load("Assets/mous.png", "Mouse", m_pRenderer))
+    if (!TheTextureManager::Instance()->load("Assets/mouse.png", "Mouse", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/restart.png", "restart", m_pRenderer))
+    {
+        return false;
+    }
+    if (!TheTextureManager::Instance()->load("Assets/explain.png", "Explain", m_pRenderer))
     {
         return false;
     }
@@ -74,6 +82,9 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         m_gameStart.push_back(new MainUI(new LoaderParams(0, 0, 1000, 800, "mainbg")));
         m_gameStart.push_back(new MainUI(new LoaderParams(300, 300, 400, 100, "playbt")));
         m_gameStart.push_back(new MainUI(new LoaderParams(300, 500, 400, 100, "exitbt")));
+    }
+    { //게임설명
+        m_gameExplain.push_back(new Explain (new LoaderParams(0, 0, 1000, 800, "Explain")));
     }
     { //게임씬
         m_gameObjects.push_back(new Background(new LoaderParams(0, 0, 1000, 1000, "background")));        
@@ -86,12 +97,14 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         m_gameObjects.push_back(new BGMing(new LoaderParams(0, 0, 0, 0, "BGM")));
         m_gameObjects.push_back(new Player(new LoaderParams(450, 665, 100, 91, "player")));
 
-
         m_gameObjector.push_back(new Enemy(new LoaderParams(10, 100, 147, 154, "mush")));
         m_gameObjector.push_back(new Monster(new LoaderParams(400, 600, 147, 154, "mush")));
         m_gameObjector.push_back(new Monster2(new LoaderParams(0, 0, 147, 154, "mush")));
 
-        m_gameObjector.push_back(new Mouse(new LoaderParams(500, 400, 420, 370, "Mouse")));
+        m_gameObjector.push_back(new Mouse(new LoaderParams(500, 400, 300, 264, "Mouse")));
+    }
+    { //재시작씬
+        m_gameRestart.push_back(new Restart(new LoaderParams(400, 400, 200, 80, "restart")));
     }
     { //종료
         m_gameEnd.push_back(new GameOver(new LoaderParams(400, 400, 190, 30, "gameoverbt")));
@@ -104,14 +117,21 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 void Game::update()
 {
     //std::cout << m_gameover << std::endl;
-    if (gamePlay == 0)
+    if (gamePlay == 0) //게임시작
     {
         for (int i = 0; i != m_gameStart.size(); i++)
         {
             m_gameStart[i]->update();
         }
     }
-    else if (gamePlay == 1)
+    else if (gamePlay == 0.5) //설명씬
+    {
+        for (int i = 0; i != m_gameExplain.size(); i++)
+        {
+            m_gameExplain[i]->update();
+        }
+    }
+    else if (gamePlay == 1) //플레이씬
     {
         for (int i = 0; i != m_gameObjects.size(); i++)
         {
@@ -122,7 +142,14 @@ void Game::update()
             m_gameObjector[i]->update();
         }
     }
-    else if (gamePlay == 2)
+    else if (gamePlay == 1.5) //재시작
+    {
+        for (int i = 0; i != m_gameRestart.size(); i++)
+        {
+            m_gameRestart[i]->update();
+        }
+    }
+    else if (gamePlay == 2) //게임끝
     {
         for (int i = 0; i != m_gameEnd.size(); i++)
         {
@@ -130,7 +157,7 @@ void Game::update()
         }
     }
 
-    if (m_gameover == m_gameObjector.size())
+    if (m_gameover == m_gameObjector.size()-1)
     {
         gamePlay = 2;
     }
@@ -148,6 +175,13 @@ void Game::render()
             m_gameStart[i]->draw();
         }
     }
+    else if (gamePlay == 0.5) //설명씬
+    {
+        for (int i = 0; i != m_gameExplain.size(); i++)
+        {
+            m_gameExplain[i]->draw();
+        }
+    }
     else if (gamePlay == 1)
     {
         for (int i = 0; i != m_gameObjects.size(); i++)
@@ -159,9 +193,16 @@ void Game::render()
             m_gameObjector[i]->draw();
         }
     }
+    else if (gamePlay == 1.5)
+    {
+        for (int i = 0; i != m_gameRestart.size(); i++)
+        {
+            m_gameRestart[i]->draw();
+        }
+    }
     else if (gamePlay == 2)
     {
-        for (int i = 0; i != m_gameEnd.size()-1; i++)
+        for (int i = 0; i != m_gameEnd.size(); i++)
         {
             m_gameEnd[i]->draw();
         }

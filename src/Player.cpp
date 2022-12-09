@@ -88,8 +88,8 @@ void Player::player_collide()
 {
     if (player_hit == true)
     {
-        std::cout << "ºÎµúÇû´Ù!" << std::endl;
-        /*Game::gamePlay = 2;*/
+        //std::cout << "ºÎµúÇû´Ù!" << std::endl;
+        Game::gamePlay = 1.5;
     }
     else return;
 }

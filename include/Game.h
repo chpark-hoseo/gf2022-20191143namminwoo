@@ -12,6 +12,8 @@
 #include "BGMing.h"
 #include "monster_parent.h"
 #include "Mouse.h"
+#include "restart.h"
+#include "Explain.h"
 class Game
 {
 public:
@@ -22,7 +24,7 @@ public:
 	void handleEvents();
 	void clean();
 
-	static int gamePlay; //0 = 메인, 1 = 게임, 2 = 종료 
+	static float gamePlay; //0 = 메인, 1 = 게임, 1.5 = 재시작 2 = 종료 
 
 	static Game* Instance() { //유일객체 생성
 		if (s_pInstance == 0) {
@@ -35,6 +37,7 @@ public:
 	void quit() { m_bRunning = false; }
 
 	static int m_gameover;
+
 private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
@@ -50,6 +53,8 @@ private:
 	std::vector<GameObject*> m_gameObjects;
 	std::vector<GameObject*> m_gameObjector;
 	std::vector<GameObject*> m_gameEnd;
+	std::vector<GameObject*> m_gameRestart;
+	std::vector<GameObject*> m_gameExplain;
 
 	//for-each 문을 위한 vector형 배열 선언
 	std::vector<int>go = {0,1};

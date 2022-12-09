@@ -39,7 +39,7 @@ void MainUI::update()
 	}
 	if (play == true)
 	{
-		Game::gamePlay = true;
+		Game::gamePlay = 0.5;
 	}
 }
 void MainUI::clean() 

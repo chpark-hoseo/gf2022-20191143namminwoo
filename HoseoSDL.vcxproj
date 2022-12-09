@@ -142,7 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\restart.cpp" />
     <ClCompile Include="src\BGMing.cpp" />
+    <ClCompile Include="src\Explain.cpp" />
     <ClCompile Include="src\Monster2.cpp" />
     <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
@@ -164,6 +166,7 @@
     <ClInclude Include="include\Background.h" />
     <ClInclude Include="include\BGMing.h" />
     <ClInclude Include="include\Enemy.h" />
+    <ClInclude Include="include\Explain.h" />
     <ClInclude Include="include\Floor.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameObject.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="include\Monster2.h" />
     <ClInclude Include="include\Mouse.h" />
     <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\restart.h" />
     <ClInclude Include="include\SDLGameObject.h" />
     <ClInclude Include="include\TextureManager.h" />
     <ClInclude Include="include\Vector2D.h" />

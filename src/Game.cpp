@@ -91,7 +91,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
         m_gameObjector.push_back(new Monster(new LoaderParams(400, 600, 147, 154, "mush")));
         m_gameObjector.push_back(new Monster2(new LoaderParams(0, 0, 147, 154, "mush")));
 
-        m_gameObjector.push_back(new Player(new LoaderParams(500, 400, 420, 370, "Mouse")));
+        m_gameObjector.push_back(new Mouse(new LoaderParams(500, 400, 420, 370, "Mouse")));
     }
     { //Á¾·á
         m_gameEnd.push_back(new GameOver(new LoaderParams(400, 400, 190, 30, "gameoverbt")));

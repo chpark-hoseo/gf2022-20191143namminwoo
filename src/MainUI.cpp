@@ -5,10 +5,6 @@ MainUI::MainUI(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 
 void MainUI::handleInput()
 {
-	//if (TheInputHandler::Instance()->getMouseButtonState(LEFT)) 
-	//{
-	//	printf("shoot \n");
-	//}
 	Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
 	if (vec->getX() >= 200 && vec->getX() <= 600 && vec->getY() >= 300 && vec->getY() <= 400)
 	{ //play ¹öÆ°

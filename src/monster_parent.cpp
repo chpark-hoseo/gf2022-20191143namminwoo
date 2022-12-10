@@ -32,27 +32,35 @@ void monster_parent::draw()
 }
 void monster_parent::update()
 {
-	handleInput();
-	move();
-	coliide();
-	m_currentFrame = ((SDL_GetTicks() / 100) % 5);
+	if (m_Monster == true)
+	{
+		handleInput();
+		move();
+		coliide();
+		m_currentFrame = ((SDL_GetTicks() / 100) % 5);
 
-	SDLGameObject::update();
+		SDLGameObject::update();
+	}
+	else return;
 }
 void monster_parent::move() {}
 void monster_parent::coliide()
 {
-	if (Player::player_X + 100 >= m_position.getX() &&
-		Player::player_Y + 91 >= m_position.getY() &&
-		Player::player_X <= m_position.getX() + 147 &&
-		Player::player_Y <= m_position.getY() + 154)
+	if (m_Monster == true)
 	{
-		Player::player_hit = true;
+		if (Player::player_X + 100 >= m_position.getX() &&
+			Player::player_Y + 91 >= m_position.getY() &&
+			Player::player_X <= m_position.getX() + 147 &&
+			Player::player_Y <= m_position.getY() + 154)
+		{
+			Player::player_hit = true;
+		}
+		else
+		{
+			Player::player_hit = false;
+		}
 	}
-	else
-	{
-		Player::player_hit = false;
-	}
+	else return;
 
 }
 void monster_parent::clean() {}

@@ -7,7 +7,7 @@ const int DELAY_TIME = 1000.0f / FPS;
 
 int main(int argc, char* argv[])
 {
-    if (TheGame::Instance()->init("Mario",
+    if (TheGame::Instance()->init("몬스터 맞추기",
         100, 100, 800, 1000, false))
     {
         Uint32 frameStart, frameTime;

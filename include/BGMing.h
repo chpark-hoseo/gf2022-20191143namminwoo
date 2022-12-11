@@ -10,4 +10,5 @@ public:
     virtual void clean();
 private:
     Mix_Chunk* g_pChunk;
+    Mix_Music* m_pChunk;
 };

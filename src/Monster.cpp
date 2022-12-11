@@ -17,22 +17,15 @@ void Monster::update()
 }
 void Monster::move()
 {
+	m_velocity.setY(10*x);
+
 	if (m_position.getY() + 154 >= 800)
 	{
-		moove = true;
+		x = -1;
 	}
 	else if (m_position.getY() == 0)
 	{
-		moove = false;
-	}
-
-	if (moove == true)
-	{
-		m_velocity.setY(-10);
-	}
-	else if (moove == false)
-	{
-		m_velocity.setY(10);
+		x = 1;
 	}
 }
 void Monster::coliide()

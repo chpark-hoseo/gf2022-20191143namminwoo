@@ -79,10 +79,6 @@ void Player::handleInput()
             m_velocity.setX(-5);
         }
     }
-    if ((TheInputHandler::Instance()->isKeyOneDown(SDL_SCANCODE_W)))
-    {
-        m_velocity.setY(-5);
-    }
 }
 void Player::player_collide()
 {

@@ -7,7 +7,7 @@ void MainUI::handleInput()
 {
 	Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
 	if (vec->getX() >= 200 && vec->getX() <= 600 && vec->getY() >= 300 && vec->getY() <= 400)
-	{ //play 버튼
+	{   //play 버튼
 		if (TheInputHandler::Instance()->getMouseButtonState(LEFT))
 		{
 			play = true;

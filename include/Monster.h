@@ -15,4 +15,5 @@ private:
     bool m_draw = true;
     bool moove = false;
     bool m_Monster = true;
+    int x = 1;
 };

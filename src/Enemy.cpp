@@ -17,26 +17,30 @@ void Enemy::update()
 }
 void Enemy::move()
 {
+	m_velocity.setX(10 * x);
+	m_velocity.setY(5 * y);
 	if (m_position.getX() + 147 >= 1000)
 	{
-		moove = true;
+		x = -1;
 	}
 	else if (m_position.getX() == 0)
 	{
-		moove = false;
+		x = 1;
 	}
-
-	if (moove == true)
+	if (m_position.getY() <= 0)
 	{
-		m_velocity.setX(-10);
+		y = 1;
 	}
-	else if (moove == false)
+	else if (m_position.getY() + 154 >= 800)
 	{
-		m_velocity.setX(10);
+		y = -1;
 	}
 }
 void Enemy::coliide()
 {
-	monster_parent::coliide();
+	if (m_Enemy == true)
+	{
+		monster_parent::coliide();
+	}	
 }
 void Enemy::clean() {}

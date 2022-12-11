@@ -14,4 +14,6 @@ private:
     bool moove = true;
     bool m_draw = false;
     bool m_Enemy = true;
+    int x = 1;
+    int y = 1;
 };

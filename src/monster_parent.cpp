@@ -2,6 +2,7 @@
 #include "InputHandler.h"
 #include "Game.h"
 #include "Player.h"
+
 monster_parent::monster_parent(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 void monster_parent::handleInput()
 {
@@ -24,7 +25,7 @@ void monster_parent::handleInput()
 }
 void monster_parent::draw()
 {
-	if (m_draw == true)
+	if (m_Monster == true)
 	{
 		SDLGameObject::draw();
 	}
